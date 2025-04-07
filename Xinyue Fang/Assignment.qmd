@@ -1,0 +1,32 @@
+---
+title: "Assignment"
+author: "Xinyue Fang"
+format: html
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+***Suits***
+
+**Introduction**
+
+[*Suits*](https://en.wikipedia.org/wiki/Suits_(American_TV_series)) is an American [television drama series](https://en.wikipedia.org/wiki/Television_drama_series "Television drama series") created by [Aaron Korsh](https://en.wikipedia.org/wiki/Aaron_Korsh "Aaron Korsh"), which premiered on June 23, 2011, on the [USA Network](https://en.wikipedia.org/wiki/USA_Network "USA Network"). It revolves around Mike Ross ([Patrick J. Adams](https://en.wikipedia.org/wiki/Patrick_J._Adams "Patrick J. Adams")), who begins working as a law associate for Harvey Specter ([Gabriel Macht](https://en.wikipedia.org/wiki/Gabriel_Macht "Gabriel Macht")), despite never attending law school. The show focuses on Harvey and Mike managing to close cases, while maintaining Mike's secret.
