@@ -1,0 +1,35 @@
+---
+title: "Assignment_TV show report"
+author: "Lian Yutong"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+# Introduction
+
+*Suits* is an American [television drama series](https://en.wikipedia.org/wiki/Television_drama_series "Television drama series") created by [Aaron Korsh](https://en.wikipedia.org/wiki/Aaron_Korsh "Aaron Korsh"), which premiered on June 23, 2011, on the [USA Network](https://en.wikipedia.org/wiki/USA_Network "USA Network"). It revolves around Mike Ross ([Patrick J. Adams](https://en.wikipedia.org/wiki/Patrick_J._Adams "Patrick J. Adams")), who begins working as a law associate for Harvey Specter ([Gabriel Macht](https://en.wikipedia.org/wiki/Gabriel_Macht "Gabriel Macht")), despite never attending law school. The show focuses on Harvey and Mike managing to close cases, while maintaining Mike's secret.
+
+The series was renewed for an eighth season on January 30, 2018.^[\[1\]](https://en.wikipedia.org/wiki/List_of_Suits_episodes#cite_note-1)^ In January 2019, the series was renewed for a ninth and final season which premiered on July 17, 2019.^[\[2\]](https://en.wikipedia.org/wiki/List_of_Suits_episodes#cite_note-2)^ During the course of the series, 134 episodes of *Suits* aired over nine seasons, between June 23, 2011, and September 25, 2019.
+
+![Suits Logo](https://en.wikipedia.org/wiki/File:SuitsSeasn1DVDCover.jpg)
