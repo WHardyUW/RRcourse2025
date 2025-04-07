@@ -1,0 +1,65 @@
+---
+title: "TV Show Viewership Analysis: *Suits*"
+format: html
+editor: visual
+---
+
+```{r}
+# Cargar librerías
+library(tidyverse)
+library(readr)
+
+# Leer los datos desde el archivo CSV
+viewership_data <- read_csv("suits_viewership.csv")
+```
+
+## *Suits*: A Brief Overview
+
+*Suits* is a legal drama that premiered on USA Network in 2011. It follows Mike Ross, a college dropout who begins working as a law associate despite never attending law school. The show ran for 9 seasons and became a fan favorite.
+
+![Suits Poster](https://upload.wikimedia.org/wikipedia/en/8/8f/Suits_season_1_poster.jpg)
+
+## Basic Statistics
+
+- **Number of Seasons**: 9  
+- **Total Episodes**: 134  
+- **Average Viewership per Episode**: `r round(mean(viewership_data$Viewers, na.rm = TRUE), 2)` million  
+- **Maximum Viewership**: `r max(viewership_data$Viewers, na.rm = TRUE)` million  
+- **Minimum Viewership**: `r min(viewership_data$Viewers, na.rm = TRUE)` million  
+
+## 📈 Viewership Over Time
+
+```{r}
+ggplot(viewership_data, aes(x = EpisodeNumber, y = Viewers)) +
+  geom_line(color = "steelblue", size = 1.2) +
+  geom_point(color = "darkblue") +
+  labs(title = "Viewership Over Time",
+       x = "Episode Number",
+       y = "Millions of Viewers") +
+  theme_minimal()
+```
+
+## 🔄 Episode-to-Episode Change
+
+```{r}
+viewership_data <- viewership_data %>%
+  arrange(EpisodeNumber) %>%
+  mutate(Change = Viewers - lag(Viewers))
+
+ggplot(viewership_data, aes(x = EpisodeNumber, y = Change)) +
+  geom_col(fill = "tomato") +
+  labs(title = "Episode-to-Episode Change in Viewership",
+       x = "Episode Number",
+       y = "Change in Viewers (Millions)") +
+  theme_minimal()
+```
+
+## Summary of Observations
+
+- The highest viewership occurred in the early seasons, peaking at around 4.64 million viewers.
+- Between Season 3 and Season 5, viewership dropped by approximately `r round(viewership_data$Viewers[viewership_data$Season == 3][1] - viewership_data$Viewers[viewership_data$Season == 5][1], 2)` million viewers.
+- The last seasons maintained moderate but stable audience levels with an average of around `r round(mean(viewership_data$Viewers[viewership_data$Season >= 7], na.rm = TRUE), 2)` million viewers.
+
+## 📂 Data Source
+
+Data based on Wikipedia viewership tables for *Suits*.
