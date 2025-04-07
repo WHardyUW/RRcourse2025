@@ -1,0 +1,63 @@
+---
+title: "Analysis of *Rick and Morty* Viewership"
+format: html
+---
+
+## Introduction
+
+*Rick and Morty* is an animated science-fiction sitcom created by Justin Roiland and Dan Harmon. The series premiered on December 2, 2013, on Adult Swim. It follows the chaotic adventures of a mad scientist, Rick Sanchez, and his good-hearted but easily influenced grandson, Morty Smith. Known for its dark humor, complex storytelling, and philosophical undertones, the show has gained a massive cult following.
+
+![Rick and Morty Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Rick_and_Morty.svg/440px-Rick_and_Morty.svg.png)
+
+## Viewership Statistics
+
+The viewership of *Rick and Morty* has grown significantly since its debut. Below are some key statistics:
+
+- **Season 1**: Averaged 1.1 million viewers per episode.
+- **Season 2**: Increased to 1.6 million viewers per episode.
+- **Season 3**: Surged to 2.8 million viewers per episode.
+- **Season 4**: Peaked at 2.9 million viewers per episode.
+- **Season 5**: Slightly declined to 2.4 million viewers per episode[^1].
+
+[^1]: Source: [Wikipedia - Rick and Morty](https://en.wikipedia.org/wiki/Rick_and_Morty).
+
+## Viewership Trends
+
+To better understand the trends in *Rick and Morty*'s viewership, we plot the data below.
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Data
+seasons = ['Season 1', 'Season 2', 'Season 3', 'Season 4', 'Season 5']
+viewership = [1.1, 2.1, 2.6, 2.4, 1.8]
+
+# Plotting
+plt.figure(figsize=(8, 5))
+plt.plot(seasons, viewership, marker='o', color='b', linestyle='-', linewidth=2)
+plt.title('Viewership Over Time')
+plt.xlabel('Season')
+plt.ylabel('Average Viewership (Millions)')
+plt.grid(True)
+plt.show()
+```
+
+## Episode-to-Episode Changes
+
+To analyze changes in viewership between seasons, we calculate the difference in average viewership.
+
+```{python}
+# Calculate changes
+changes = np.diff(viewership)
+
+# Plotting
+plt.figure(figsize=(8, 5))
+plt.bar(seasons[1:], changes, color=['green' if c > 0 else 'red' for c in changes])
+plt.title('Episode-to-Episode Changes in Viewership')
+plt.xlabel('Season')
+plt.ylabel('Change in Viewership (Millions)')
+plt.axhline(0, color='black', linewidth=0.8, linestyle='--')
+plt.grid(axis='y')
+plt.show()
+```
