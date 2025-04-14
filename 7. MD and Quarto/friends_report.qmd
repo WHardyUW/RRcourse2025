@@ -9,3 +9,9 @@ jupyter: python3
 ## Introduction
 
 *Friends* is an American television sitcom created by David Crane and Marta Kauffman, which aired on NBC from September 22, 1994, to May 6, 2004. The show revolves around six friends in their 20s and 30s who live in Manhattan, New York City. Known for its humor, memorable characters, and emotional depth, *Friends* quickly became one of the most popular TV shows of all time.
+
+
+## Show Logo
+
+![](friends_report_files/images/friends_logo.jpg){fig-align="center" width=400px}
+
