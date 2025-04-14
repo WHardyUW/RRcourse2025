@@ -3,7 +3,7 @@ title: "Quarto"
 author: "Sujith Madesh"
 date: "04/14/2025"
 format: html
-jupyter: python3
+jupyter: base
 ---
 
 ## Introduction
@@ -15,3 +15,66 @@ jupyter: python3
 
 ![](friends_report_files/images/friends_logo.jpg){fig-align="center" width=400px}
 
+
+## Viewership Summary
+
+*Friends* ran for 10 seasons, totaling 236 episodes. It was one of the most-watched TV shows in the United States during its original airing. 
+
+- The show premiered to **21.5 million** viewers.
+- Its most-watched episode, *"The One After the Superbowl"*, drew **52.9 million** viewers.
+- The final episode was watched by **52.5 million** people, making it the **fifth most-watched series finale** in U.S. television history.
+
+Below, we’ll explore the viewership trends across the seasons.
+
+
+```{python}
+import pandas as pd
+
+# Average U.S. viewership per season (in millions)
+viewership_data = {
+    "Season": list(range(1, 11)),
+    "Average_Viewers": [24.5, 29.4, 25.0, 24.7, 24.6, 20.0, 20.2, 21.6, 21.6, 22.8]
+}
+
+df = pd.DataFrame(viewership_data)
+df
+```
+
+
+## Viewership graph overtime
+
+```{python}
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 6))
+plt.plot(df['Season'], df['Average_Viewers'], marker='o', color='blue')
+plt.title('Friends Viewership by Season')
+plt.xlabel('Season')
+plt.ylabel('Average Viewers (Millions)')
+plt.xticks(df['Season'])
+plt.grid(True)
+plt.show()
+
+```
+
+## Calculate Season-to-Season Changes and Plot Season-to-Season Change
+
+```{python}
+# Calculate percentage change
+df['Pct_Change'] = df['Average_Viewers'].pct_change() * 100
+plt.figure(figsize=(10, 6))
+plt.bar(df['Season'][1:], df['Pct_Change'][1:], color='green')
+plt.title('Season-to-Season Change in Viewership (%)')
+plt.xlabel('Season')
+plt.ylabel('Change (%)')
+plt.grid(True)
+plt.show()
+
+
+```
+
+## Observations
+
+- *Friends* reached its peak average viewership in **Season 2** with **29.4 million viewers**.
+- The most significant drop happened between **Season 5 and 6**, decreasing by **19.4%**.
+- Viewership began to stabilize again from **Season 7 onward**, ending with **22.8 million** in the final season.
