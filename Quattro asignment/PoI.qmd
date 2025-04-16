@@ -5,23 +5,45 @@ format: html
 editor: visual
 ---
 
-## Quarto
+![Person of Interest Logo from seasons 4-5](https://upload.wikimedia.org/wikipedia/en/d/db/PersonOfInterstLogo.jpg)
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+## Description
 
-## Running Code
+*Person of Interest* is an American science fiction crime drama television series that aired on CBS from September 22, 2011, to June 21, 2016. The series was created by Jonathan Nolan, co-writer of *The Dark Knight* trilogy, and produced by J.J. Abrams. It centers on a super-intelligent machine that predicts crimes before they happen, and a team of operatives working to prevent them.
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+### Viewership Summary
 
-```{r}
-1 + 1
+*Person of Interest* premiered to **13.3 million viewers** and maintained strong ratings throughout its run. The highest-rated episode aired in Season 1, while later seasons saw a gradual decline in live viewership, consistent with overall trends in TV consumption.
+
+```{r, echo: false}
+library(tibble)
+
+viewership_df <- tibble::tibble(
+  Season = 1:5,
+  Year = c("2011–12", "2012–13", "2013–14", "2014–15", "2016"),
+  Avg_Viewers_Millions = c(13.33, 14.28, 12.44, 10.58, 7.35)  # Approximate values
+)
+
+print(viewership_df)
+
+library(ggplot2)
+
+ggplot(viewership_df, aes(x = factor(Season), y = Avg_Viewers_Millions)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "Person of Interest: Average U.S. Viewership by Season",
+    x = "Season",
+    y = "Average Viewers (Millions)"
+  ) +
+  theme_minimal()
+
 ```
 
-You can add options to executable code like this
+### 📌 Observations
 
-```{r}
-#| echo: false
-2 * 2
-```
+- **Season 1** had a solid start with **13.3 million** average viewers, establishing the show as a strong debut.
+- **Season 2** reached the peak average viewership with approximately **14.28 million viewers**, making it the **5th most-watched** U.S. TV series in the 2012–13 season.
+- **Season 3** saw a moderate dip to **12.44 million**, still keeping the show in a competitive position.
+- **Season 4** remained strong, drawing an average of **10.58 million viewers**, and ranked **21st overall** for the 2014–15 season.
+- **Season 5** had the **lowest average viewership**, around **7.35 million viewers**, likely due to a **shortened season (13 episodes)** and a **shift to summer scheduling**.
 
-The `echo: false` option disables the printing of code (only output is displayed).
