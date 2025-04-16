@@ -11,11 +11,14 @@ editor: visual
 
 *Person of Interest* is an American science fiction crime drama television series that aired on CBS from September 22, 2011, to June 21, 2016. The series was created by Jonathan Nolan, co-writer of *The Dark Knight* trilogy, and produced by J.J. Abrams. It centers on a super-intelligent machine that predicts crimes before they happen, and a team of operatives working to prevent them.
 
-### Viewership Summary
+## Viewership Summary
 
 *Person of Interest* premiered to **13.3 million viewers** and maintained strong ratings throughout its run. The highest-rated episode aired in Season 1, while later seasons saw a gradual decline in live viewership, consistent with overall trends in TV consumption.
 
-```{r, echo: false}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 library(tibble)
 
 viewership_df <- tibble::tibble(
@@ -37,13 +40,19 @@ ggplot(viewership_df, aes(x = factor(Season), y = Avg_Viewers_Millions)) +
   ) +
   theme_minimal()
 
+drop_3_to_5 <- viewership_df$Avg_Viewers_Millions[3] - viewership_df$Avg_Viewers_Millions[5]
+drop_2_to_4 <- viewership_df$Avg_Viewers_Millions[2] - viewership_df$Avg_Viewers_Millions[4]
+
 ```
 
-### 📌 Observations
+### Observations
 
-- **Season 1** had a solid start with **13.3 million** average viewers, establishing the show as a strong debut.
-- **Season 2** reached the peak average viewership with approximately **14.28 million viewers**, making it the **5th most-watched** U.S. TV series in the 2012–13 season.
-- **Season 3** saw a moderate dip to **12.44 million**, still keeping the show in a competitive position.
-- **Season 4** remained strong, drawing an average of **10.58 million viewers**, and ranked **21st overall** for the 2014–15 season.
-- **Season 5** had the **lowest average viewership**, around **7.35 million viewers**, likely due to a **shortened season (13 episodes)** and a **shift to summer scheduling**.
+-   **Season 1** had a solid start with **13.3 million** average viewers, establishing the show as a strong debut.
+-   **Season 2** reached the peak average viewership with approximately **14.28 million viewers**, making it the **5th most-watched** U.S. TV series in the 2012--13 season.
+-   **Season 3** saw a moderate dip to **12.44 million**, still keeping the show in a competitive position.
+-   **Season 4** remained strong, drawing an average of **10.58 million viewers**, and ranked **21st overall** for the 2014--15 season.
+-   **Season 5** had the **lowest average viewership**, around **7.35 million viewers**, likely due to a **shortened season (13 episodes)** and a **shift to summer scheduling**.
 
+### Viewership Trends Summary
+
+The show experienced a notable decrease in viewership over time. For example, between **Season 3** and **Season 5**, the average audience dropped by **`r round(drop_3_to_5, 2)` million viewers**. Similarly, from **Season 2** to **Season 4**, the show lost around **`r round(drop_2_to_4, 2)` million viewers** on average. These changes reflect the gradual decline in live broadcast audiences, particularly in later seasons affected by summer scheduling and shorter episode runs.
