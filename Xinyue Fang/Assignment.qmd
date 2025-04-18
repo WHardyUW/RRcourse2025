@@ -4,29 +4,44 @@ author: "Xinyue Fang"
 format: html
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
-
 ***Suits***
 
 **Introduction**
 
 [*Suits*](https://en.wikipedia.org/wiki/Suits_(American_TV_series)) is an American [television drama series](https://en.wikipedia.org/wiki/Television_drama_series "Television drama series") created by [Aaron Korsh](https://en.wikipedia.org/wiki/Aaron_Korsh "Aaron Korsh"), which premiered on June 23, 2011, on the [USA Network](https://en.wikipedia.org/wiki/USA_Network "USA Network"). It revolves around Mike Ross ([Patrick J. Adams](https://en.wikipedia.org/wiki/Patrick_J._Adams "Patrick J. Adams")), who begins working as a law associate for Harvey Specter ([Gabriel Macht](https://en.wikipedia.org/wiki/Gabriel_Macht "Gabriel Macht")), despite never attending law school. The show focuses on Harvey and Mike managing to close cases, while maintaining Mike's secret.
+
+![Suits logo](https://th.bing.com/th/id/OIP.vVV0jfsv8ZUvuP4hXHmwYAHaLH?w=120&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7)
+
+library(readr)
+
+library(ggplot2)
+
+library(knitr)
+
+library(here)
+
+**Viewership Statistics**
+
+viewership \<- read_csv(here::here("data", "suits_viewership.csv"))
+
+knitr::kable(viewership, caption = "Average Viewership per Season (Millions)")
+
+**Viewership Over Time**
+
+ggplot(viewership, aes(x = Season, y = Viewers)) + geom_line(size = 1.2, color = "#2c3e50") + geom_point(size = 3, color = "#e74c3c") + labs( title = "Suits - Seasonal Viewership Over Time", x = "Season", y = "Viewership (Millions)" ) + scale_x_continuous(breaks = viewership\$Season)
+
+**Change in Viewership (Season-over-Season)**
+
+viewership \<- viewership %\>% arrange(Season) %\>% mutate(Change = Viewers - lag(Viewers))
+
+ggplot(viewership, aes(x = Season, y = Change)) + geom_col(fill = "#3498db") + labs( title = "Season-over-Season Change in Viewership", x = "Season", y = "Change in Viewership (Millions)" ) + geom_hline(yintercept = 0, linetype = "dashed", color = "gray50")
+
+**Observations**
+
+Viewership peaked at Season 3, with an average of 4.45 million viewers. From that point forward, viewership steadily declined. For instance:
+
+Between Seasons 3 and 5, viewership dropped by 1.56 million (from 4.45M to 2.89M).
+
+By the final season (Season 9), the average dropped further to just 0.91 million viewers.
+
+This declining trend may reflect increased competition from streaming services or audience fatigue.
