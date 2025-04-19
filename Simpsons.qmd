@@ -1,0 +1,116 @@
+---
+title: "The Simpsons Viewership Analysis"
+format: 
+  html:
+    toc: true
+    code-fold: true
+execute:
+  echo: false
+---
+
+## 1. Show Description  
+*The Simpsons* is an American animated sitcom created by Matt Groening that premiered on December 17, 1989. The series follows the satirical adventures of the Simpson family - Homer, Marge, Bart, Lisa, and Maggie - in the fictional town of Springfield. As the longest-running American scripted primetime television series, it has become a cultural phenomenon.
+
+## 2. Logo representation  
+```{python} 
+
+from IPython.display import display, HTML
+logo_html = '''
+<div style="margin: 20px auto; text-align: center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/The_logo_simpsons_yellow.png/1200px-The_logo_simpsons_yellow.png?20210413044310" 
+       width="350"
+</div>
+'''
+display(HTML(logo_html))
+```
+
+## 3. Basic Statistics
+```{python} 
+#| label: tbl-stats
+#| tbl-cap: "Basic Statistics"
+import pandas as pd
+from IPython.display import display
+
+metrics = pd.DataFrame({
+    "Metric": ["Seasons", "Episodes", "Peak Viewership", "Current Viewership", "IMDb Rating"],
+    "Value": [36, 782, "33.6 million (S3E1, 1991)", "1.2 million (S35)", "8.6/10"]
+})
+
+display(metrics.style.hide(axis="index").set_properties(**{'text-align': 'left'}))
+```
+## 4. Viewership Trend
+```{python} 
+
+#| label: fig-trend
+#| fig-cap: "Average Seasonal Viewership (Millions)"
+import matplotlib.pyplot as plt
+
+seasons = range(1, 36)
+viewers = [13.4, 17.5, 23.1, 23.8, 20.6, 19.3, 18.1, 17.8, 15.7, 11.3,
+           10.5, 9.1, 8.7, 8.1, 7.4, 7.2, 6.7, 6.3, 5.8, 5.2, 4.3,
+           3.8, 3.5, 3.1, 2.9, 2.7, 2.4, 2.1, 1.9, 1.7, 1.5, 1.3, 1.1, 1.23, 1.2]
+
+plt.figure(figsize=(10,5))
+plt.plot(seasons, viewers, 'o-', color='#F14E28', linewidth=2)
+plt.title("The Simpsons Viewership (Seasons 1-35)")
+plt.xlabel("Season Number")
+plt.ylabel("Viewers (Millions)")
+plt.xticks(range(0, 36, 5))
+plt.grid(alpha=0.2)
+plt.show()
+```
+## 5. Yearly Changes
+```{python} 
+#| label: fig-changes
+#| fig-cap: "Season-to-Season Viewership Changes (%)"
+changes = [(viewers[i]-viewers[i-1])/viewers[i-1]*100 for i in range(1,len(viewers))]
+
+plt.figure(figsize=(10,5))
+plt.bar(seasons[1:], changes, color=['#2CA02C' if x >=0 else '#D62728' for x in changes])
+plt.axhline(0, color='black', linewidth=0.8)
+plt.title("Yearly Viewership Changes")
+plt.xlabel("Season Number")
+plt.ylabel("Percentage Change")
+plt.grid(axis='y', alpha=0.2)
+plt.show()
+```
+
+## 6. Trend Analysis  
+
+The viewership data reveals several significant patterns in *The Simpsons'* audience trends over its 35-season run:
+
+**Peak Performance Era**
+
+The show reached its highest popularity during **Season 3** (1991-92), averaging **23.1 million viewers** per episode. This represented a dramatic **72.4% increase** from Season 1's average, demonstrating the series' rapid growth in its early years.
+
+**Critical Decline Period**
+
+The most substantial viewership drop occurred between **Seasons 9-10** (1997-99), with a **28.0% decrease** in average viewership. This coincided with:
+- Increased competition from other animated series
+- Changes in writing staff
+- Shifting audience preferences
+
+**Modern Era Stability**
+
+In recent seasons (31-35), the show has stabilized with:
+- An average of **1.3 million viewers**
+- Seasonal fluctuations of **±15.4%**  
+While significantly lower than peak numbers, this demonstrates the series maintains a loyal core audience.
+
+**Long-Term Trend**
+
+The overall **91.0% decline** from Season 1 to Season 35 reflects both:
+1. Natural aging of a long-running series
+2. Fundamental changes in television viewing habits
+3. Increased competition in the streaming era
+
+*Despite these declines, The Simpsons remains culturally significant and profitable through syndication and streaming deals.*
+
+## References {#references}
+
+### Data Sources
+1. [The Simpsons Episode Guide](https://en.wikipedia.org/wiki/List_of_The_Simpsons_episodes), Wikipedia  
+2. [IMDb Episode Ratings](https://www.imdb.com/title/tt0096697/episodes), IMDb 
+
+### Image Credits
+- Logo: [Fair use via Wikimedia](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/The_logo_simpsons_yellow.png/1200px-The_logo_simpsons_yellow.png?20210413044310)
