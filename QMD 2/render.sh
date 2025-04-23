@@ -1,0 +1,1 @@
+quarto render succession.qmd --to html,pdf

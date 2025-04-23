@@ -1,0 +1,80 @@
+---
+title: "Assignment - TV Series: Succession"
+author: "Jakub Filon"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: journal
+    number-sections: true
+    code-fold: true
+    code-summary: "Show/Hide Code"
+    code-tools: true
+    embed-resources: true
+    highlight-style: tango
+  pdf:
+    toc: true
+    number-sections: true
+    documentclass: article
+editor: visual
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Introduction
+
+*Succession* is an American satirical black comedy-drama television series created by Jesse Armstrong that aired on HBO from June 3, 2018, to May 28, 2023. The series follows the Roy family, owners of the global media and entertainment conglomerate Waystar RoyCo, as they battle for control of the company amid growing tensions and shifting alliances — particularly as the health of patriarch Logan Roy comes into question.
+
+## Image
+
+![Succession Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Succession-logo.png/250px-Succession-logo.png)
+
+*Official logo of **Succession***.
+
+## Viewership Statistics
+
+::: {.panel-tabset}
+
+## Data Table
+
+| Season | Episodes | First Aired | Last Aired  | Notable Viewership |
+|--------|----------|-------------|-------------|--------------------|
+| 1      | 10       | 3 Jun 2018  | 5 Aug 2018  | 0.60M              |
+| 2      | 10       | 11 Aug 2019 | 13 Oct 2019 | 0.59M              |
+| 3      | 9        | 17 Oct 2021 | 12 Dec 2021 | 0.55M              |
+| 4      | 10       | 26 Mar 2023 | 28 May 2023 | 0.70M              |
+
+*Data Source: [Wikipedia - Succession (TV series)](https://en.wikipedia.org/wiki/Succession_(TV_series))*
+
+## Chart: Average Viewership by Season
+
+```{r viewership_over_time, fig.cap="Average Viewership by Season"}
+# Average viewers per season
+library(ggplot2)
+data <- data.frame(Season = 1:4, Viewers = c(0.60, 0.59, 0.55, 0.70))
+
+ggplot(data, aes(x = Season, y = Viewers)) +
+  geom_line() + geom_point() +
+  labs(x = "Season", y = "Average Viewers (M)")
+```
+
+## Chart: Change in Viewership Between Seasons
+
+```{r viewership_change, fig.cap="Change in Viewership Between Seasons"}
+# Change in viewers between seasons
+library(ggplot2)
+change <- diff(c(0.60, 0.59, 0.55, 0.70))
+data_change <- data.frame(Season = paste0("S", 2:4), Change = change)
+
+ggplot(data_change, aes(x = Season, y = Change)) +
+  geom_col() +
+  labs(x = "Season", y = "Change in Viewers (M)")
+```
+
+:::
+
+## Comment on Changes
+
+Viewership change between the first two seasons was `r change[1]` M, season 3 compared to season 2 changed by `r change[2]` M, and the final season brought an increase by `r change[3]` M.
