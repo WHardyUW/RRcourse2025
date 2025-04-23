@@ -1,7 +1,17 @@
 ---
 title: "Assignment"
 author: "Jan Szczepanek"
-format: html
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    toc-title: "Contents"
+    toc-float: true
+    theme: minty
+  pdf:
+    toc: true
+
 editor: visual
 ---
 
@@ -44,6 +54,22 @@ drop_3_to_5 <- viewership_df$Avg_Viewers_Millions[3] - viewership_df$Avg_Viewers
 drop_2_to_4 <- viewership_df$Avg_Viewers_Millions[2] - viewership_df$Avg_Viewers_Millions[4]
 
 ```
+
+::: {.panel-tabset}
+
+### Python
+
+```{python}
+print('I watched all 5 seasons')
+```
+
+### R
+
+```{r}
+print('I watched all 5 seasons')
+```
+:::
+
 
 ### Observations
 
