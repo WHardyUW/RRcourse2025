@@ -1,8 +1,15 @@
 ---
 title: "BigBang Theory Viewership"
 author: "Edwell Mandebvu"
-format: html
 editor: visual
+execute:
+      echo: false 
+      warning: false
+      message: false
+
+format: 
+  html:
+      output-file: Big Bang Theory Final.html
 ---
 
 **🚀 *The Big Bang Theory*: Where Geniuses, Nerdy Jokes, and Love Collide! 🎲**
