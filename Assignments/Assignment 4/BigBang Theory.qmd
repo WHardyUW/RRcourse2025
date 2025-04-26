@@ -5,8 +5,6 @@ format: html
 editor: visual
 ---
 
-# The Big Bang Theory
-
 **🚀 *The Big Bang Theory*: Where Geniuses, Nerdy Jokes, and Love Collide! 🎲**
 
 Picture this: Two brilliant but socially awkward physicists—*Leonard* and his eccentric roommate *Sheldon*—navigate life’s biggest mysteries, from quantum mechanics to why *Penny*, their gorgeous neighbor, still laughs at their *Star Wars* references. Throw in *Howard’s* questionable fashion choices, *Raj’s* inability to speak to women (unless drunk), and a whole lot of comic books, and you’ve got one of TV’s funniest friend groups!
@@ -332,3 +330,9 @@ ggplot(final_seasons, aes(x=Episode, y=Viewers, color=Season)) +
   scale_x_continuous(breaks=seq(1,24,by=4))
 
 ```
+
+The evidence above shows that the Tv show started off pretty modestly in Season 1 with around **8.34 million viewers**, but it picked up steam fast. By Season 2, it was already pulling in over **10 million**, and then Season 3 really blew up with **14.22 million** viewers. You could tell it was starting to find its audience early on.
+
+From Seasons 4 to 7, the show just kept getting bigger. There was a little dip in Season 4 down to **13.21 million**, but after that, it skyrocketed. Season 5 jumped to almost **16 million**, then Season 6 hit **18.68 million**, and Season 7 peaked with just under **20 million** viewers. Those seasons were definitely the show's golden years.
+
+From Season 8 onwards, the numbers stayed strong but started to slowly drop off. Season 8 dipped slightly, but Season 9 actually hit the highest viewership yet with **20.36 million**. After that though, starting in Season 10, there was a gradual decline — **18.99 million**, then **18.63 million**, and finally **17.31 million** in the last season. Even with the slight drop, it stayed one of the biggest shows on TV right up until the end.
