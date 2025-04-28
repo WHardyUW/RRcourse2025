@@ -8,13 +8,20 @@ execute:
   message: false
 
 format: 
+
+  pdf:
+    output-file: Big Bang Theory Final.pdf
+
+  docx:
+    output-file: Big Bang Theory Final.docx
+
   html:
     toc: true
     toc-depth: 3
     code-tools: true      
     code-fold: true       
     code-summary: "Click to view code" 
-    output-file: "Big Bang Theory Final.html"
+    output-file: Big Bang Theory Final.html
     theme:
       light: flatly
       dark: darkly
@@ -22,11 +29,6 @@ format:
  #theme: cosmo
 
 
-  pdf:
-    output-file: Big Bang Theory Final.pdf
-
-  docx:
-    output-file: Big Bang Theory Final.docx
 
 
 editor: visual
@@ -326,7 +328,7 @@ ggplot(final_seasons, aes(x=Episode, y=Viewers, color=Season)) +
   scale_x_continuous(breaks=seq(1,24,by=4))
 ```
 
-## Conclusions  {.tabset}
+## Conclusions {.tabset}
 
 The evidence above shows that the Tv show started off pretty modestly in Season 1 with around **8.34 million viewers**, but it picked up steam fast. By Season 2, it was already pulling in over **10 million**, and then Season 3 really blew up with **14.22 million** viewers. You could tell it was starting to find its audience early on.
 
