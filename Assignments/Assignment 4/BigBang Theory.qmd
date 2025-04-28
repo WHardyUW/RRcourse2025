@@ -3,13 +3,19 @@ title: "BigBang Theory Viewership"
 author: "Edwell Mandebvu"
 editor: visual
 execute:
-      echo: false 
-      warning: false
-      message: false
+  echo: false 
+  warning: false
+  message: false
 
 format: 
   html:
-      output-file: Big Bang Theory Final.html
+    output-file: Big Bang Theory Final.html
+    toc: true
+    theme: cosmo
+  pdf:
+    output-file: Big Bang Theory Final.pdf
+  docx:
+    output-file: Big Bang Theory Final.docx
 ---
 
 **🚀 *The Big Bang Theory*: Where Geniuses, Nerdy Jokes, and Love Collide! 🎲**
@@ -18,7 +24,7 @@ Picture this: Two brilliant but socially awkward physicists—*Leonard* and his 
 
 Over 12 hilarious seasons, *The Big Bang Theory* turned science geeks into superstars, proving that even geniuses need help with dating, roommates, and surviving Comic-Con. With unforgettable moments—*Sheldon’s* "Bazinga!," Howard’s space adventures, and the gang’s endless debates over *Star Trek vs. Star Wars*—this sitcom became a pop culture phenomenon. And hey, it even spawned spinoffs (*Young Sheldon*, anyone?), because once you meet these nerds, you just can’t get enough!
 
-![The Big Bang Theory cast](The-Big-Bang-Theory-cast.avif){width="667"}
+![The Big Bang Theory Cast](The-Big-Bang-Theory-cast.png)
 
 ::: panel-tabset
 ## Viewership Data
