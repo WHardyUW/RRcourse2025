@@ -5,31 +5,119 @@ format: html
 editor: visual
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
-
 # Introduction
 
-*Suits* is an American [television drama series](https://en.wikipedia.org/wiki/Television_drama_series "Television drama series") created by [Aaron Korsh](https://en.wikipedia.org/wiki/Aaron_Korsh "Aaron Korsh"), which premiered on June 23, 2011, on the [USA Network](https://en.wikipedia.org/wiki/USA_Network "USA Network"). It revolves around Mike Ross ([Patrick J. Adams](https://en.wikipedia.org/wiki/Patrick_J._Adams "Patrick J. Adams")), who begins working as a law associate for Harvey Specter ([Gabriel Macht](https://en.wikipedia.org/wiki/Gabriel_Macht "Gabriel Macht")), despite never attending law school. The show focuses on Harvey and Mike managing to close cases, while maintaining Mike's secret.
+*Suits* is an American television drama series created by Aaron Korsh, which premiered on June 23, 2011, on the USA Network. It revolves around Mike Ross (Patrick J. Adams), who begins working as a law associate for Harvey Specter (Gabriel Macht), despite never attending law school. The show focuses on Harvey and Mike managing to close cases, while maintaining Mike's secret.
 
-The series was renewed for an eighth season on January 30, 2018.^[\[1\]](https://en.wikipedia.org/wiki/List_of_Suits_episodes#cite_note-1)^ In January 2019, the series was renewed for a ninth and final season which premiered on July 17, 2019.^[\[2\]](https://en.wikipedia.org/wiki/List_of_Suits_episodes#cite_note-2)^ During the course of the series, 134 episodes of *Suits* aired over nine seasons, between June 23, 2011, and September 25, 2019.
+The series was renewed for an eighth season on January 30, 2018. In January 2019, the series was renewed for a ninth and final season which premiered on July 17, 2019. During the course of the series, 134 episodes of *Suits* aired over nine seasons, between June 23, 2011, and September 25, 2019.
 
-![Suits Logo](https://en.wikipedia.org/wiki/File:SuitsSeasn1DVDCover.jpg)
+![](images/suits-01.jpg){fig-align="center"}
+
+# Viewership
+
+## Viewership Over Time
+
+-   **Season 1 (2011)**:\
+    The premiere attracted approximately **4.64** million viewers.
+
+-   **Season 2 (2012)**:\
+    The premiere had about **3.47** million viewers.
+
+-   **Season 3 (2013)**:\
+    The premiere had about**2.93** million viewers.
+
+-   **Season 4 (2014-2015):**\
+    The premiere had about **2.50** million viewers.
+
+-   **Season 5 (2015–2016)**:\
+    The premiere had about **2.13** million viewers.
+
+-   **Season 6 (2016–2017)**:\
+    The premiere had about **1.85** million viewers.
+
+-   **Season 7 (2017-2018):**\
+    The premiere had about **1.40** million viewers.
+
+-   **Season 8 (2018-2019):**\
+    The premiere had about **1.27** million viewers.
+
+-   **Season 9 (2019-2020)**:\
+    The premiere had about **1.04** million viewers.
+
+Source: <https://en.wikipedia.org/wiki/Suits_(American_TV_series)>
+
+Overall, *Suits* started strong in its early seasons but saw a gradual decline in ratings over time.\
+However, it achieved incredible success on streaming platforms later, becoming one of the most-watched series in 2023, with nearly 57.7 billion minutes streamed. (Source: [facebook.com](https://www.facebook.com/TheBoardroom/posts/originally-airing-from-2011-to-2019-suits-built-a-loyal-fanbase-during-its-nine-/1133161235490015/?utm_source=chatgpt.com))
+
+```{r}
+#| fig-subcap: 
+#|  - "Suits Viewership Over seasons"
+#|  - "Suits change rate of Viewership Over seasons"
+#| layout-ncol: 2
+#| column: page
+#| echo: false
+
+library(ggplot2)
+season = 1:9
+viewers = c(4.64,3.47,2.93,2.50,2.13,1.85,1.40,1.27,1.04)
+data <- data.frame(season, viewers)
+
+change_rate <- diff(viewers) / viewers[-length(viewers)] * 100
+data_change <- data.frame(
+  season = season[-1], 
+  change_rate = change_rate
+)
+
+ggplot(data, aes(x = season, y = viewers)) +
+  geom_line() +
+  geom_point() +
+  xlab("Season") +
+  ylab("Viewers (Millions)")+
+  theme_minimal()
+
+ggplot(data_change, aes(x = season, y = change_rate)) +
+  geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray") +
+  xlab("Season")+
+  ylab("Change Rate (%)")+
+  theme_minimal()
+```
+
+```{r}
+#| results: asis
+#| echo: false
+
+season <- 1:9
+viewers <- c(4.64, 3.47, 2.93, 2.50, 2.13, 1.85, 1.40, 1.27, 1.04)
+
+viewer_diff <- diff(viewers)
+
+desc1 <- paste0(
+  "Between Season 1 and Season 3, the viewership dropped from ", 
+  viewers[1], " million to ", viewers[3], " million, a decrease of approximately ", 
+  round(viewers[1] - viewers[3], 2), " million viewers."
+)
+
+desc2 <- paste0(
+  "From Season 3 to Season 5, the viewership declined from ", 
+  viewers[3], " million to ", viewers[5], " million, a loss of around ", 
+  round(viewers[3] - viewers[5], 2), " million viewers."
+)
+
+desc3 <- paste0(
+  "The sharpest decline occurred between Season 6 and Season 7, with a drop from ", 
+  viewers[6], " million to ", viewers[7], " million, about ", 
+  round(viewers[6] - viewers[7], 2), " million viewers."
+)
+
+desc4 <- paste0(
+  "Overall, from Season 1 to Season 9, the viewership decreased by about ", 
+  round(viewers[1] - viewers[9], 2), " million viewers."
+)
+
+cat(desc1)
+cat(desc2)
+cat(desc3)
+cat(desc4)
+```
