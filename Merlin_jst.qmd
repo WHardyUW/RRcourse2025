@@ -1,19 +1,21 @@
 ---
-title: "Assignment 5"
-author: "Jack ST"
-format: html
-editor: visual
----
-
----
 title: "ASSIGNMENT 5 - TV Series: *Merlin*"
-format: html
+author: "Jack ST"
+format: 
+  html:
+    theme: superhero
+    toc: true
+    toc-depth: 2
+    smooth-scroll: true
+    code-fold: show
+    code-summary: "Show / hide R code"
+  docx: default
 execute: 
   echo: true
   warning: false
   message: false
 ---
-
+:::{.panel-tabset}
 ## Introduction
 
 *Merlin* is a British fantasy-adventure drama that aired on BBC One from 20 September 2008 to 24 December 2012. The series reimagines Arthurian legends, following the young warlock Merlin as he protects Prince Arthur in a kingdom where magic is outlawed. Other notable characters include Morgana, Guinevere, and Uther Pendragon.
@@ -69,3 +71,5 @@ ggplot(data_change, aes(x = Season, y = Change)) +
   geom_col() +
   labs(x = "Season", y = "Change in Viewers (millions)")
 ```
+
+:::

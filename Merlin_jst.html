@@ -64,18 +64,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="Merlin_jst_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="Merlin_jst_files/libs/quarto-html/anchor.min.js"></script>
 <link href="Merlin_jst_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Merlin_jst_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="Merlin_jst_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="Merlin_jst_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Merlin_jst_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Merlin_jst_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="Merlin_jst_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Merlin_jst.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -103,12 +106,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Introduction</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Image</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Viewership Statistics</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p><em>Merlin</em> is a British fantasy-adventure drama that aired on BBC One from 20 September 2008 to 24 December 2012. The series reimagines Arthurian legends, following the young warlock Merlin as he protects Prince Arthur in a kingdom where magic is outlawed. Other notable characters include Morgana, Guinevere, and Uther Pendragon.</p>
-</section>
-<section id="image" class="level2">
-<h2 class="anchored" data-anchor-id="image">Image</h2>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://www.google.com/url?sa=i&amp;url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt1199099%2F&amp;psig=AOvVaw3cvVAIJD0xbHk5cs1xWpW2&amp;ust=1744121980796000&amp;source=images&amp;cd=vfe&amp;opi=89978449&amp;ved=0CBQQjRxqFwoTCOCD9euOxowDFQAAAAAdAAAAABAE" class="img-fluid figure-img"></p>
@@ -116,9 +120,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p><em>Main cast of <strong>Merlin</strong></em>.</p>
-</section>
-<section id="viewership-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="viewership-statistics">Viewership Statistics</h2>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p>Here is a summary of average UK viewership per season:</p>
 <table class="caption-top table">
 <colgroup>
@@ -177,6 +180,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p><em>Data Source: <a href="https://en.wikipedia.org/wiki/List_of_Merlin_episodes">Wikipedia</a></em></p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Show / hide R code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
@@ -188,6 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Season"</span>, <span class="at">y =</span> <span class="st">"Average Viewers (millions)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -198,6 +204,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Show / hide R code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>change <span class="ot">&lt;-</span> <span class="fu">diff</span>(<span class="fu">c</span>(<span class="fl">6.32</span>, <span class="fl">5.99</span>, <span class="fl">6.78</span>, <span class="fl">7.17</span>, <span class="fl">7.13</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data_change <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Season =</span> <span class="fu">paste0</span>(<span class="st">"S"</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>),</span>
@@ -207,6 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_change, <span class="fu">aes</span>(<span class="at">x =</span> Season, <span class="at">y =</span> Change)) <span class="sc">+</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Season"</span>, <span class="at">y =</span> <span class="st">"Change in Viewers (millions)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -216,7 +225,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section>
+</div>
+</div>
+</div>
 
 </main>
 <!-- /main column -->
@@ -634,4 +645,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="Merlin_jst_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
