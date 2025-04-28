@@ -15,13 +15,15 @@ execute:
   warning: false
 ---
 
-## 1. Description
+## TV series analysis {.tabset}
+
+### 1. Description
 *Desperate Housewives* is an American mystery comedy-drama television series created by Marc Cherry, and produced by ABC Studios and Cherry Productions. (https://en.wikipedia.org/wiki/Desperate_Housewives)
 
-## 2. Picture of the show
+### 2. Picture of the show
 ![Desperate Housewives Photo](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Desperate_Housewives_at_2008_GLAAD_Awards.jpg/1014px-Desperate_Housewives_at_2008_GLAAD_Awards.jpg)
 
-## 3. Viewership Data
+### 3. Viewership Data
 Below is a summary of the viewership (in millions) per episode.
 
 ```{python}
@@ -48,7 +50,7 @@ df.index = range(1,11)
 # Display table
 df.style.format("{:.2f}")
 ```
-## 4. Analysis of data
+### 4. Analysis of data
 ```{python}
 import matplotlib.pyplot as plt
 # Calculate average viewership per season
