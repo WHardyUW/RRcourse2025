@@ -9,16 +9,18 @@ execute:
 
 format: 
   html:
+    toc: true         
+    toc-depth: 3      
+    theme: cosmo       
     output-file: Big Bang Theory Final.html
-    toc: true
-    theme: cosmo
+    
   pdf:
     output-file: Big Bang Theory Final.pdf
   docx:
     output-file: Big Bang Theory Final.docx
 ---
 
-**🚀 *The Big Bang Theory*: Where Geniuses, Nerdy Jokes, and Love Collide! 🎲**
+## **🚀 *The Big Bang Theory*: Where Geniuses, Nerdy Jokes, and Love Collide! 🎲**
 
 Picture this: Two brilliant but socially awkward physicists—*Leonard* and his eccentric roommate *Sheldon*—navigate life’s biggest mysteries, from quantum mechanics to why *Penny*, their gorgeous neighbor, still laughs at their *Star Wars* references. Throw in *Howard’s* questionable fashion choices, *Raj’s* inability to speak to women (unless drunk), and a whole lot of comic books, and you’ve got one of TV’s funniest friend groups!
 
@@ -26,8 +28,11 @@ Over 12 hilarious seasons, *The Big Bang Theory* turned science geeks into super
 
 ![The Big Bang Theory Cast](The-Big-Bang-Theory-cast.png)
 
-::: panel-tabset
 ## Viewership Data
+
+:::: panel-tabset
+::: panel-tabset
+:::
 
 | Season | Episodes |   | Originally released |   | Viewers rank | U.S. Viewers (millions) | 18–49 rank | 18–49 rating/share |
 |:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
@@ -46,7 +51,9 @@ Over 12 hilarious seasons, *The Big Bang Theory* turned science geeks into super
 | 12 | 24 |  | September 24, 2018 | May 16, 2019 | 2 | 17.31 | 6 | 3.6 |
 
 ## 
-:::
+::::
+
+## Viewership Ratings and Overview
 
 ```{r}
 ## Viewership and Ratings Analysis
@@ -343,6 +350,8 @@ ggplot(final_seasons, aes(x=Episode, y=Viewers, color=Season)) +
   scale_x_continuous(breaks=seq(1,24,by=4))
 
 ```
+
+## Conclusion
 
 The evidence above shows that the Tv show started off pretty modestly in Season 1 with around **8.34 million viewers**, but it picked up steam fast. By Season 2, it was already pulling in over **10 million**, and then Season 3 really blew up with **14.22 million** viewers. You could tell it was starting to find its audience early on.
 
