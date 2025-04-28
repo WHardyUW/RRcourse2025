@@ -11,15 +11,16 @@ format:
   html:
     toc: true
     toc-depth: 3
-    #theme: cosmo
+    code-tools: true      
+    code-fold: true       
+    code-summary: "Click to view code" 
+    output-file: "Big Bang Theory Final.html"
     theme:
       light: flatly
       dark: darkly
     css: styles.css
-    code-fold: true         
-    code-summary: "Click to expand code"  
-    output-file: "Big Bang Theory Final.html"
-  
+ #theme: cosmo
+
 
   pdf:
     output-file: Big Bang Theory Final.pdf
