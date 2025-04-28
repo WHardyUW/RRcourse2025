@@ -1,0 +1,86 @@
+---
+title: "TV Show Viewership Report: *Suits* Assignment 5"
+author: "Isidro Moroso Varona"
+date: today
+format:
+  html:
+    toc: true
+    toc-title: "Contents"
+    toc-location: left
+    theme: flatly
+    code-fold: true
+    code-summary: "Show/Hide Code"
+  docx: default
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: visual
+---
+
+```{r}
+
+library(tidyverse)
+library(readr)
+
+viewership_data <- read_csv("suits_viewership.csv")
+```
+
+# Introduction
+
+*Suits* is an American legal drama television series created by Aaron Korsh. The series premiered on USA Network in June 2011 and ran for nine seasons.
+
+![Suits Poster](https://upload.wikimedia.org/wikipedia/en/8/8f/Suits_season_1_poster.jpg)
+
+# Basic Statistics
+
+- **Number of Seasons**: 9  
+- **Total Episodes**: 134  
+- **Average Viewership per Episode**: `r round(mean(viewership_data$Viewers, na.rm = TRUE), 2)` million  
+- **Maximum Viewership**: `r max(viewership_data$Viewers, na.rm = TRUE)` million  
+- **Minimum Viewership**: `r min(viewership_data$Viewers, na.rm = TRUE)` million  
+
+# 📊 Viewership Analysis
+
+::: {.panel-tabset}
+
+## Viewership Over Time
+
+```{r}
+ggplot(viewership_data, aes(x = EpisodeNumber, y = Viewers)) +
+  geom_line(color = "steelblue", size = 1.2) +
+  geom_point(color = "darkblue") +
+  labs(title = "Viewership Over Time",
+       x = "Episode Number",
+       y = "Millions of Viewers") +
+  theme_minimal()
+```
+
+## Changes in Viewership
+
+```{r}
+viewership_data <- viewership_data %>%
+  arrange(EpisodeNumber) %>%
+  mutate(Change = Viewers - lag(Viewers))
+
+ggplot(viewership_data, aes(x = EpisodeNumber, y = Change)) +
+  geom_col(fill = "tomato") +
+  labs(title = "Episode-to-Episode Change",
+       x = "Episode Number",
+       y = "Change in Viewers (Millions)") +
+  theme_minimal()
+```
+
+:::
+
+# Observations
+
+- The highest viewership was during early seasons, reaching `r max(viewership_data$Viewers)` million viewers.
+- Between Season 3 and Season 5, viewership declined by about `r round(viewership_data$Viewers[viewership_data$Season == 3][1] - viewership_data$Viewers[viewership_data$Season == 5][1], 2)` million viewers.
+- The final seasons maintained stable viewership levels around `r round(mean(viewership_data$Viewers[viewership_data$Season >= 7], na.rm = TRUE), 2)` million viewers.
+
+# References
+
+Data based on Wikipedia: *Suits (TV series)* page.
+
+
