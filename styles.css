@@ -1,0 +1,221 @@
+/* Base Styles */
+body {
+    font-family: 'Avenir', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #000000; /* Black for all text */
+    background-color: #FFFFFF; /* White background */
+  }
+  
+  /* Header Styles */
+  h1, h2, h3, h4 {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #000000 !important; /* Black headers */
+    margin-top: 1.5rem;
+  }
+  
+  h1 {
+    border-bottom: 3px solid #FFDE00; /* Simpsons Yellow */
+    padding-bottom: 0.3em;
+  }
+  
+  /* Table Styles */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.5em 0;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  th {
+    background-color: #107DC0 !important; /* Teal Blue */
+    color: white !important; /* Keep white text on colored headers */
+    font-weight: bold !important;
+    text-align: left !important;
+  }
+  
+  td, th {
+    padding: 12px 15px;
+    border: 1px solid #ffffff; /* Pale Goldenrod border */
+    color: #000000 !important; /* Black text in cells */
+  }
+  
+  tr:nth-child(even) {
+    background-color: #ffffff; 
+  }
+  
+  tr:hover {
+    background-color: #ffffff33; /* Semi-transparent Simpsons Yellow */
+  }
+  
+ /* Code Blocks */
+pre {
+    border-left: 4px solid #F14E28; /* Flame Orange accent */
+    background-color: #000000 !important; /* Black background */
+    color: #ffffff !important; /* White text */
+    padding: 12px;
+    margin: 1em 0;
+    overflow-x: auto;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  /* Keep inline code unchanged */
+  code {
+    color: #000000 !important; 
+    background-color: #FFDE0033; 
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+  
+  /* Fix syntax highlighting for black bg */
+  pre code {
+    background-color: transparent !important;
+    color: inherit !important; /* Inherits white from pre */
+  }
+  
+  /* Callout Boxes */
+  .callout-important {
+    border-left-color: #F14E28 !important;
+    background-color: #F7A8B822 !important;
+    color: #000000 !important; /* Black text */
+  }
+  
+  .callout-tip {
+    border-left-color: #107DC0 !important;
+    background-color: #ffffff !important;
+    color: #000000 !important; /* Black text */
+  }
+  
+  .callout-caution {
+    border-left-color: #FFDE00 !important;
+    background-color: #F14E2822 !important;
+    color: #000000 !important; /* Black text */
+  }
+  
+  /* Navigation */
+    #TOC {
+    background-color: #b3b8b9; 
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+    /* Force all TOC text to black */
+    #TOC * {
+    color: #000000 !important;
+  }
+  
+  #TOC ul {
+    padding-left: 1.2em;
+    list-style-type: none; /* Remove default list styling */
+  }
+  
+  #TOC ol {
+    counter-reset: toc-counter; /* Initialize counter */
+    padding-left: 1.2em;
+    list-style: none; /* Remove default numbers */
+  }
+  
+  #TOC ol li {
+    counter-increment: toc-counter; /* Increment counter */
+  }
+  
+  #TOC ol li::before {
+    content: counters(toc-counter, ".") ". "; /* Generate numbers */
+    color: #000000 !important; /* Pure black */
+    font-weight: bold;
+    display: inline-block;
+    width: 1.5em;
+    margin-left: -1.5em;
+  }
+  
+  #TOC a {
+    color: #000000 !important; /* Black links */
+  }
+  
+  #TOC a:hover {
+    color: #F14E28 !important; /* Flame Orange on hover */
+    text-decoration: underline;
+  }
+  /* Table Captions */
+  .table-caption, caption {
+    color: #000000 !important; /* Black captions */
+    font-weight: bold;
+  }
+  
+  /* Tabs */
+  .nav-tabs .nav-link {
+    color: #000000 !important; /* Black tab text */
+  }
+  
+  .nav-tabs .nav-link.active {
+    color: #000000 !important; /* Black active tab */
+    border-bottom: 3px solid #FFDE00; /* Simpsons Yellow */
+    font-weight: bold;
+  }
+  
+  .nav-tabs .nav-link:hover:not(.active) {
+    color: #F14E28 !important; /* Flame Orange hover */
+  }
+  
+  /* Footer */
+  footer {
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid #FFDE00;
+    font-size: 0.9em;
+    color: #000000 !important; /* Black */
+  }
+  
+  /* Dark mode overrides */
+  body.darkly {
+    background-color: #2A3439;
+    color: #000000 !important; /* Force black text in dark mode */
+  }
+  
+  body.darkly .card,
+  body.darkly .callout {
+    background-color: #000000;
+    color: #000000 !important;
+  }
+  
+  body.darkly code {
+    background-color: #000000;
+    color: #FFDE00 !important; /* Yellow code text for visibility */
+  }
+  
+  /* Keep all other existing styles below this line */
+
+  /* Justified text container */
+.justified-text {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+  
+  /* Headings inside justified container */
+  .justified-text h2,
+  .justified-text h3,
+  .justified-text h4 {
+    text-align: left;
+    margin-top: 1.5em;
+  }
+  
+  /* Lists maintain proper indentation */
+  .justified-text ul,
+  .justified-text ol {
+    text-align: left;
+    padding-left: 1.5em;
+  }
+  
+  /* List items */
+  .justified-text li {
+    text-align: justify;
+    margin-bottom: 0.5em;
+  }
+  
+  /* Bold/italic formatting */
+  .justified-text strong,
+  .justified-text em {
+    text-align: inherit;
+  }
+
+  
