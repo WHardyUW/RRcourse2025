@@ -55,8 +55,7 @@ drop_2_to_4 <- viewership_df$Avg_Viewers_Millions[2] - viewership_df$Avg_Viewers
 
 ```
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ### Python
 
 ```{python}
@@ -69,7 +68,6 @@ print('I watched all 5 seasons')
 print('I watched all 5 seasons')
 ```
 :::
-
 
 ### Observations
 
