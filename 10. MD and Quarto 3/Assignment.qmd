@@ -1,13 +1,22 @@
 ---
-title: "Assignment"
-author: ""
+title: "Assignment Q&M 3"
+author: "Weronika Golik"
 date: today
-output: html_document
+output: html
+params:
+  season: 5
 ---
 
 ```{r}
-load("../Data/season_1.RData")
+#| echo: false
+season <- params$season
+
+load(paste0("C:\\Users\\Wercia\\OneDrive\\Desktop\\2025\\RR\\RR_git3\\RRcourse2025\\Data\\season_", season, ".RData"))
+
 ```
+
+
+
 
 # Game of Thrones - Season 1 summary in numbers
 
@@ -23,13 +32,45 @@ Set on the fictional continents of Westeros and Essos, Game of Thrones has a lar
 
 ***
 
-### Season 1 summary
+### Season `r season` Summary
 
-Season 1 of Game of Thrones consisted of 10 episodes that aired between April 17 and June 19, 2011 on HBO. The show gathered an average of 2.515 first-day TV viewers in the US, with the number growing from 2.22 to 3.04 million by the end of the season.
+Description from the Wikipedia page.
 
-The most popular episode of the season was "Fire and Blood", in which:
 
-> "The North secedes from the Seven Kingdoms and proclaims Robb as king. With Jaime as the Starks' prisoner and Robert's two brothers, Stannis and Renly, each challenging Joffrey's claim to the throne, Tywin appoints Tyrion as acting King's Hand, while Tywin fights to defend Joffrey's reign. Jon attempts to desert the Night's Watch to avenge Ned and join Robb, but his Night's Watch brothers convince him to honor his oath. Jon joins an expedition to search for Benjen Stark beyond the Wall. Yoren, a Night's Watch recruiter, smuggles Arya out of King's Landing disguised as a boy, while Joffrey intends to crown Sansa his queen, despite executing her father. Daenerys's baby is born deformed and dead, and Drogo is left in a vegetative state by the witch's treacherous magic. Daenerys compassionately ends Drogo's life. She places the three dragon eggs on Drogo's funeral pyre and sets it afire, also burning the witch alive. Ignoring Jorah's pleas, she walks into the flames. When the embers die the following morning, Daenerys is found in the ashes, unharmed, flanked by three newly-hatched baby dragons. Jorah and other witnesses kneel before her."
+```{r}
+
+
+library(rvest)
+library(stringr)
+
+season <- params$season
+wiki_url <- paste0("https://en.wikipedia.org/wiki/Game_of_Thrones_(season_", season, ")")
+
+# Read the HTML
+page <- read_html(wiki_url)
+
+# Extract first paragraph under the content (usually <p> inside the main content div)
+paragraphs <- page %>% html_elements("p") %>% html_text()
+
+# Pick the first non-empty paragraph as the season description
+season_summary <- paragraphs[which(str_length(paragraphs) > 100)[1]]
+
+
+```
+`r season_summary`
+
+```{r}
+most_popular_index <- which.max(season_data$viewers)
+
+most_popular_title <- season_data$title[most_popular_index]
+most_popular_description <- season_data$description[most_popular_index]
+```
+
+
+
+The most popular episode of the season was "`r most_popular_title`", in which:
+
+> "`r most_popular_description`"
 
 ***
 
@@ -37,16 +78,21 @@ You can see how the viewership of the episodes changed in Figure 1.
 
 ```{r}
 #| label = "viewers_plot"
-plot(season_data$viewers, type="l", col="red", lwd=5, xlab = "Episode number", ylab = "1st day TV viewers in the US (millions)")
+plot(season_data$viewers, type="l", col="darkblue", lwd=5, xlab = "Episode number", ylab = "1st day TV viewers in the US (millions)")
 ```
 
 ***
 
 Finally, the episodes with the above-average viewership were:
 
-| No. in season | Title  | Directed by  |
-|:------        |:-----: |:------:      |
-| 5             | "The Wolf and the Lion"  | Brian Kirk      |
-| 8             | "The Pointy End" | Daniel Minahan      |
-| 9             | "Baelor" | Alan Taylor      |
-| 10            | "Fire and Blood" | Alan Taylor      |
+```{r}
+avg_viewers <- mean(season_data$viewers, na.rm = TRUE)
+
+popular_episodes <- season_data[season_data$viewers > avg_viewers, ]
+
+table_data <- popular_episodes[, c("no_season", "title", "directed_by")]
+
+knitr::kable(table_data, col.names = c("No. in season", "Title", "Directed by"))
+
+```
+
