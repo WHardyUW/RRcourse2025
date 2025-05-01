@@ -1,0 +1,99 @@
+---
+title: "TV Series Assignment - The Office"
+author: "Karol Rochalski"
+date: "09/04/2025"
+format: 
+  html:
+    theme: journal
+  pdf:
+    documentclass: scrartcl
+    papersize: letter
+    toc: true
+    toc-depth: 2
+    toc-title: Contents
+execute:
+  echo: fenced
+---
+
+```{r}
+#| echo: fenced
+#| code-fold: true
+#| label: Package instalation
+install.packages('plyr', repos = "http://cran.us.r-project.org")
+install.packages('chron', repos = "http://cran.us.r-project.org")
+install.packages('reticulate', repos = "http://cran.us.r-project.org")
+install.packages('ggplot2', repos = "http://cran.us.r-project.org")
+install.packages("readxl", repos = "http://cran.us.r-project.org")
+library(readxl)
+library(chron)
+library(reticulate)
+library(ggplot2)
+```
+# The Office
+
+
+### The Office is a British mockumentary television sitcom first broadcast in the UK on BBC Two on 9 July 2001. Created, written and directed by Ricky Gervais and Stephen Merchant, it follows the day-to-day lives of office employees in the Slough branch of the fictional Wernham Hogg paper company. Gervais also starred in the series as the central character, David Brent.
+
+
+------------------------------------------------------------------------
+
+![The_Office](Theoffice.jpg)
+
+
+### Basic information about the series:
+
+1. Number of seasons - 9
+
+2. Number of episodes - 201
+
+3. Air time - 2005/03/24 - 2013/05/16
+
+### Directed by:
+
+1. *Ricky Gervais*
+
+2. *Stephen Merchant*
+
+# List of Episodes
+
+```{r}
+#| echo: fenced
+#| code-fold: true
+#| label: Data Loading
+df <- read.csv("./the_office_episodes.csv")
+df$title
+
+```
+
+# Group by episode
+
+
+```{r}
+#| echo: fenced
+#| code-fold: true
+#| label: Episode Grouping
+ggplot(df, aes(x=episode_num_overall, y=us_viewers)) +
+    geom_point(alpha = 0.5, size = 2) +
+    scale_color_viridis_c() + 
+    theme_minimal() +
+    ggtitle('Number of viewers per episode over time')
+
+```
+
+# Group by season
+
+```{r}
+#| echo: fenced
+#| code-fold: true
+#| label: Season Grouping
+ggplot(df, aes(x=season, y=us_viewers)) +
+  geom_point(alpha = 0.5, size = 2) +
+  scale_color_viridis_c() + 
+  theme_minimal() +
+  ggtitle('Number of viewers per season')
+```
+
+### Final description
+
+The show was very popular in the U.S. Throughout its runtime the office gathered maximum of 12 mln viewers on first season. It also managed to maintain high viewership count over time.
+
