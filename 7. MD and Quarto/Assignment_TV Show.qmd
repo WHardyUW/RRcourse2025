@@ -1,7 +1,18 @@
 ---
 title: "Assignment_TV show report"
 author: "Lian Yutong"
-format: html
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    theme: lumen
+    lof: true
+    
+  docx: 
+    toc: true         
+    toc-depth: 2      
+    lof: true         
+    number-sections: true
 editor: visual
 ---
 
