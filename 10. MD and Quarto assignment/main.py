@@ -10,16 +10,17 @@ def generate_quarto_report(number: int):
         f"-P", f"season:{number}"
     ]
     subprocess.run(command, check=True)
-    print("✅ Generated filename")
+    print(filename+" Generated ✅")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python main.py <season_number>")
-        print("Usage: python main.py <season_number_fromer> <season_number_to>")
+        print("Usage: python main.py <season_number_from> <season_number_to>")
         sys.exit(1)
+    if len(sys.argv) == 2 :
+        generate_quarto_report(sys.argv[1])
+        sys.exit(0)
     if len(sys.argv) == 3:
         for i in range(int(sys.argv[1]), int(sys.argv[2])+1):
             generate_quarto_report(i)
         sys.exit(0)
-    if len(sys.argv) ==2 :
-        generate_quarto_report(sys.argv[1])
