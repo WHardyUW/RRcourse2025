@@ -4,14 +4,15 @@
 # Wojciech Hardy
 
 library(quarto)
+quarto install tinytex
 
-setwd("")
+setwd("C:\\Users\\Wercia\\OneDrive\\Desktop\\2025\\RR\\RR_git3\\RRcourse2025\\8. MD and Quarto 2")
 
 # Converting from Rmd to Qmd
 
 ## Step 1) 
-knitr::convert_chunk_header(input = "RMD_class_1_cut.Rmd", 
-                            output = "QMD_class_1_cut.qmd")
+knitr::convert_chunk_header(input = "Assignment_QM2.Rmd", 
+                            output = "QMD_Assignment_QM2.qmd")
 
 ## Step 2)
 readLines("QMD_class_1_cut.qmd")[1:5]
