@@ -1,15 +1,77 @@
----
-title: "Assignment"
-author: ""
-date: today
-output: html_document
----
-
-```{r}
-load("../Data/season_1.RData")
+```{python}
+#| tags: [parameters]
+#| code-fold: true
+season = 1
 ```
 
-# Game of Thrones - Season 1 summary in numbers
+```{python}
+#| code-fold: true
+
+import pandas as pd
+import os
+from datetime import datetime
+
+results = {}
+
+
+data_file = f"../Data/season_{season}.csv"
+
+if not os.path.exists(data_file):
+    raise FileNotFoundError(f"Data for season {season} not found!")
+
+season_data = pd.read_csv(data_file)
+
+if season_data.empty:
+    raise ValueError(f"Data object 'season_data' is empty in {data_file}")
+
+season_data['premiere_date'] = pd.to_datetime(
+    season_data['premiere_date'].str.split("(").str[1].str.split(")").str[0]
+)
+
+num_episodes = season_data['no_season'].max()
+start_date = season_data['premiere_date'].min().strftime('%B %d')
+end_date = season_data['premiere_date'].max().strftime('%B %d')
+year = season_data['premiere_date'].max().strftime('%Y')
+
+avg_viewers = round(season_data['viewers'].mean(),3)
+min_viewers = round(season_data['viewers'].min(),2)
+max_viewers = season_data['viewers'].max()
+
+top_episode = season_data[season_data['viewers'] == max_viewers].iloc[0]
+
+results[season] = {
+    'num_episodes': num_episodes,
+    'start_date': start_date,
+    'end_date': end_date,
+    'year': year,
+    'avg_viewers': avg_viewers,
+    'min_viewers': min_viewers,
+    'max_viewers': max_viewers,
+    'top_episode_title': top_episode['title'],
+    'top_episode_description': top_episode['description'],
+    'highlighted_episodes': season_data[season_data['viewers'] > avg_viewers][
+        ['no_season', 'title', 'directed_by']
+    ].rename(columns={'no_season': 'No. in season', 'directed_by': 'Director'})
+}
+# 打印结果看看有没有问题
+
+
+```
+
+---
+title: "Game of Thrones - Season `{python} season` Summary"
+author: "Jiayu Ban"
+date: today
+engine: python
+output: 
+  html_document:
+    toc: false
+  pdf_document:
+    toc: false
+---
+
+
+# Game of Thrones - Season `{python} season` summary in numbers
 
 ### __(*Warning:* spoilers ahead)__
 
@@ -23,30 +85,52 @@ Set on the fictional continents of Westeros and Essos, Game of Thrones has a lar
 
 ***
 
-### Season 1 summary
+### Season `{python} season`  summary
 
-Season 1 of Game of Thrones consisted of 10 episodes that aired between April 17 and June 19, 2011 on HBO. The show gathered an average of 2.515 first-day TV viewers in the US, with the number growing from 2.22 to 3.04 million by the end of the season.
+Season `{python} season` of Game of Thrones consisted of `{python} int(results[season] ['num_episodes'])` episodes that aired between `{python} results[season] ['start_date']` and `{python} results[season] ['end_date']`, `{python} results[season] ['year']` on HBO. The show gathered an average of `{python} int(results[season] ['avg_viewers'])` million first-day TV viewers in the US, with the number growing from `{python} int(results[season] ['min_viewers'])` to `{python} int(results[season] ['max_viewers'])`  million by the end of the season.
 
-The most popular episode of the season was "Fire and Blood", in which:
+The most popular episode of the season was `{python} results[season]['top_episode_title']`, in which:
 
-> "The North secedes from the Seven Kingdoms and proclaims Robb as king. With Jaime as the Starks' prisoner and Robert's two brothers, Stannis and Renly, each challenging Joffrey's claim to the throne, Tywin appoints Tyrion as acting King's Hand, while Tywin fights to defend Joffrey's reign. Jon attempts to desert the Night's Watch to avenge Ned and join Robb, but his Night's Watch brothers convince him to honor his oath. Jon joins an expedition to search for Benjen Stark beyond the Wall. Yoren, a Night's Watch recruiter, smuggles Arya out of King's Landing disguised as a boy, while Joffrey intends to crown Sansa his queen, despite executing her father. Daenerys's baby is born deformed and dead, and Drogo is left in a vegetative state by the witch's treacherous magic. Daenerys compassionately ends Drogo's life. She places the three dragon eggs on Drogo's funeral pyre and sets it afire, also burning the witch alive. Ignoring Jorah's pleas, she walks into the flames. When the embers die the following morning, Daenerys is found in the ashes, unharmed, flanked by three newly-hatched baby dragons. Jorah and other witnesses kneel before her."
+> `{python} results[season] ['top_episode_description']`
 
 ***
 
 You can see how the viewership of the episodes changed in Figure 1.
 
-```{r}
-#| label = "viewers_plot"
-plot(season_data$viewers, type="l", col="red", lwd=5, xlab = "Episode number", ylab = "1st day TV viewers in the US (millions)")
+```{python}
+#| code-fold: true
+#| label: viewers_plot
+
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10, 5))
+plt.plot(season_data['no_season'], 
+         season_data['viewers'],
+         color='red',
+         linewidth=2,
+         marker='o')
+plt.xticks(season_data['no_season'])
+plt.title(f"Season {season} Viewership")
+plt.grid(True)
+plt.show()
+
 ```
 
 ***
 
 Finally, the episodes with the above-average viewership were:
 
-| No. in season | Title  | Directed by  |
-|:------        |:-----: |:------:      |
-| 5             | "The Wolf and the Lion"  | Brian Kirk      |
-| 8             | "The Pointy End" | Daniel Minahan      |
-| 9             | "Baelor" | Alan Taylor      |
-| 10            | "Fire and Blood" | Alan Taylor      |
+
+```{python}
+#| code-fold: true
+#| echo: false
+
+!pip install tabulate
+from tabulate import tabulate
+
+highlighted_episodes = season_data[season_data['viewers'] > avg_viewers]
+print(tabulate(
+    highlighted_episodes[['no_season', 'title', 'directed_by']],
+    headers=['Episode', 'Title', 'Director'],
+    tablefmt='pipe'
+))
+```
