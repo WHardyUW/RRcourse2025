@@ -1,0 +1,27 @@
+---
+author: "Kacper Mosoń"
+date: "05/10/2025"
+output: html_document
+---
+
+```{python}
+#| tags: [parameters]
+#| echo: false
+
+season = None
+```
+
+```{python}
+import pandas as pd
+import plotly.express as px
+
+# Load data from Excel file, where each sheet is a season
+df = pd.read_excel("./GoT_seasons.xlsx", sheet_name=f"s{season}")
+
+# Clean 'U.S. viewers(millions)' column
+df['U.S. viewers(millions)'] = df['U.S. viewers(millions)'].str.extract(r'([\d.]+)').astype(float)
+
+# Plot
+fig = px.line(df, x="No.overall", y="U.S. viewers(millions)", title=f"Season {season} Viewership")
+fig.show()
+```
