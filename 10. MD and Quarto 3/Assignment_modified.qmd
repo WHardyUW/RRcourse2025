@@ -1,0 +1,82 @@
+---
+title: "Assignment Quanto 3"
+author: Michał Budasz
+date: today
+output: html_document
+params:
+  season: 1
+  description: "some_text"
+---
+```{r}
+
+# Let's load the data for each season
+load(paste0("../Data/season_",params$season,".RData"))
+
+```
+
+# Game of Thrones - Season 'r params$season' summary in numbers
+
+### __(*Warning:* spoilers ahead)__
+
+***
+
+### Overview
+
+(From the [Wikipedia](https://en.wikipedia.org/wiki/Game_of_Thrones#Premise)) Game of Thrones is an American fantasy drama television series created by David Benioff and D. B. Weiss for HBO. It is an adaptation of A Song of Ice and Fire, a series of fantasy novels by George R. R. Martin, the first of which is A Game of Thrones.
+
+'r params$description' 
+
+
+***
+
+### Season 'r params$season' summary
+
+```{r}
+echo=FALSE
+
+library(stringr)
+episodes_no<-nrow(season_data)
+
+show_start<-str_sub(season_data$premiere_date,-11,-2)[1]
+show_end<-str_sub(season_data$premiere_date,-11,-2)[episodes_no]
+
+avg_viewers<- mean(season_data$viewers)
+
+viewers_start<-season_data$viewers[1]
+viewers_end<-season_data$viewers[episodes_no]
+
+if (viewers_start<viewers_end){
+  change <- "growing"
+} else {
+  change <- "declining"
+}
+
+most_popular_title <- season_data$title[which.max(season_data$viewers)]
+most_popular_description <- season_data$description[which.max(season_data$viewers)]
+```
+
+Season 'r params$season' of Game of Thrones consisted of 'r episodes_no' episodes that aired between 'r show_start' and 'r show_end' on HBO. The show gathered an average of 'r avg_viewers' first-day TV viewers in the US, with the number 'r change' from 'r viewers_start'  to 'r viewers_end' million by the end of the season.
+
+The most popular episode of the season was 'r most_popular_title', in which:
+
+> 'r most_popular_description'
+
+***
+
+You can see how the viewership of the episodes changed in Figure 1.
+
+```{r}
+#| label = "viewers_plot"
+plot(season_data$viewers, type="l", col="red", lwd=5, xlab = "Episode number", ylab = "1st day TV viewers in the US (millions)")
+```
+
+***
+
+Finally, the episodes with the above-average viewership were:
+
+| No. in season | Title  | Directed by  |
+|:------        |:-----: |:------:      |
+| 5             | "The Wolf and the Lion"  | Brian Kirk      |
+| 8             | "The Pointy End" | Daniel Minahan      |
+| 9             | "Baelor" | Alan Taylor      |
+| 10            | "Fire and Blood" | Alan Taylor      |
