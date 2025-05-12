@@ -1,0 +1,79 @@
+---
+title: "Game of Thrones Summary - Season `r params$season`"
+format: pdf
+params:
+  season: 1
+---
+
+```{r setup, include=FALSE}
+# Set chunk options
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+<!-- Introduce the report and insert the correct season -->
+This report provides a summary of **Season `r params$season`** of *Game of Thrones*, based on episode-level data including titles, air dates, and viewership.
+
+```{r load-data}
+# Load the correct dataset based on the input parameter
+file_path <- sprintf("Data/season_%d.csv", params$season)
+got_data <- read.csv(file_path)
+
+# Filter to ensure we’re using only the specified season
+got_data <- subset(got_data, no_season == params$season)
+
+# Preview the first few rows
+head(got_data)
+```
+
+## Season `r params$season` Overview
+
+```{r summary-stats}
+# Number of episodes
+num_episodes <- nrow(got_data)
+
+# Average viewers (in millions)
+avg_viewers <- round(mean(got_data$viewers, na.rm = TRUE), 2)
+
+# Most viewed episode
+most_viewed <- got_data[which.max(got_data$viewers), "title"]
+
+# Print summary
+cat(paste0("Season ", params$season, " had ", num_episodes, " episodes. ",
+           "On average, each episode was watched by ", avg_viewers, " million viewers. ",
+           "The most viewed episode was '", most_viewed, "'."))
+```
+
+## Viewership by Episode
+
+```{r plot-viewers}
+library(ggplot2)
+
+ggplot(got_data, aes(x = no_season, y = viewers)) +
+  geom_col(fill = "darkgreen") +
+  labs(title = paste("Viewership - Season", params$season),
+       x = "Episode (in season)",
+       y = "Viewers (Millions)") +
+  theme_minimal()
+```
+
+## Episode Table
+
+```{r episode-table}
+# Show a simple episode summary table
+library(dplyr)
+
+got_data %>%
+  select(no_season, title, premiere_date, viewers) %>%
+  rename(`Episode` = no_season,
+         `Title` = title,
+         `Air Date` = premiere_date,
+         `Viewers (M)` = viewers)
+```
+
+## Conclusion
+
+<!-- Wrap up the summary -->
+Season `r params$season` of *Game of Thrones* attracted an average of `r avg_viewers` million viewers per episode. The data gives us insight into the popularity of individual episodes and how the season was received.
+
