@@ -1,0 +1,173 @@
+---
+title: "Survivor"
+author: "Daisy Mutua"
+date: today
+format:
+  html:
+    toc: true
+    toc-title: " Table of Contents"
+    toc-depth: 3
+    toc-location: body
+    theme: superhero
+    code-fold: true
+    code-summary: "Click to expand R code"
+    embed-resources: true
+  pdf: default
+  docx: default
+execute:
+  echo: fenced
+  warning: false
+  cache: true
+  freeze: auto
+code-annotations: below
+title-block-banner: true
+number-sections: true
+number-depth: 3
+---
+
+## Introduction
+
+*Survivor* is an American reality television series that premiered on CBS on May 31, 2000. The show places a group of strangers in an isolated location, where they must fend for themselves by obtaining food, fire, and shelter. Contestants compete in various challenges—testing physical ability, mental acuity, and teamwork—to earn rewards and immunity from elimination. Periodically, players are voted out by their peers until only one remains, earning the title of "Sole Survivor" and a grand prize of \$1 million. The series is hosted by Jeff Probst and has been praised for its innovative format and influence on reality television.
+
+![*Figure 1: Official logo of Survivor.*](https://morewhatnot.com/wp-content/uploads/2015/11/multilogoimage1.jpg?w=584){fig-align="center"}
+
+::: panel-tabset
+## Viewership Overview
+
+Below is a summary of average U.S. viewership per season for *Survivor*, based on publicly available data from [Wikipedia](https://en.wikipedia.org/wiki/Survivor_(American_TV_series)).
+
+Here’s a summary table of average U.S. viewership:
+
+| Season | Premiere Date | Finale Date     | Avg. Viewers (Millions) |
+|--------|---------------|-----------------|-------------------------|
+| 1      | May 31, 2000  | August 23, 2000 | 28.30                   |
+| 2      | Jan 28, 2001  | May 3, 2001     | 29.80                   |
+| 20     | Feb 11, 2010  | May 16, 2010    | 12.60                   |
+| 40     | Feb 12, 2020  | May 13, 2020    | 6.68                    |
+| 45     | Sep 27, 2023  | Dec 20, 2023    | 5.24                    |
+
+### 📊 Viewership by Season
+
+```{r}
+library(ggplot2)
+
+season <- 1:20
+viewers <- c(28.3, 29.8, 21.6, 20.0, 19.6, 20.4, 20.7, 21.5, 21.0, 20.6, 20.1, 19.6, 16.9, 16.0, 15.6, 13.6, 13.4, 13.0, 12.2, 11.7)
+
+df <- data.frame(season, viewers)
+
+ggplot(df, aes(x = season, y = viewers)) +
+  geom_line(color = "steelblue", size = 1.2) +
+  geom_point(color = "darkred", size = 2) +
+  labs(title = "Average Viewership per Season (Survivor U.S.)",
+       x = "Season",
+       y = "Viewers (millions)") +
+  theme_minimal()
+```
+
+## **🗳️ Favorite Season Poll**
+
+```{r}
+favorite_season <- c("Borneo", "The Australian Outback", "Thailand", "Heroes vs. Villains", "Winners at War")
+poll_data <- data.frame(Season = favorite_season, Votes = c(34, 22, 17, 45, 30))
+
+ggplot(poll_data, aes(x = Season, y = Votes, fill = Season)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "Poll: Favorite Survivor Season",
+       x = "Season",
+       y = "Number of Votes") +
+  theme_minimal()
+```
+:::
+
+#### Season-to-Season Change
+
+```{r}
+# Add viewership change
+df$Change <- c(NA, diff(df$viewers))
+
+# Bar plot
+ggplot(df[-1, ], aes(x = season, y = Change)) +
+  geom_bar(stat = "identity", fill = "coral") +
+  labs(title = "Change in Viewership Between Seasons",
+       x = "Season", y = "Change in Viewers (millions)") +
+  theme_minimal()
+```
+
+### Observations
+
+-   The peak viewership was in **Season 2** with 29.8 million viewers.
+
+-   Viewership dropped by over **23 million** by Season 45.
+
+-   The show has remained popular despite the decline, with loyal fans and consistent social media buzz.
+
+## Historical Milestones
+
+-   **The Birth of Survivor**: *Survivor* first debuted in 2000, revolutionizing reality TV with its unique format. The first season, *Survivor: Borneo*, became a cultural phenomenon.
+
+    ![*Figure 2: Birth of Survivor.*](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOImnIoahXcgt5Zz8QYvTw91UUzNDx14MsDw&s)
+
+-   **Iconic Players**: Players like *Richard Hatch*, *Rob Mariano*, and *Sandra Diaz-Twine* have become household names. Sandra remains the only two-time winner of the series, securing her place in Survivor history.
+
+    ![*Figure 3: Survival Idols.*](https://townsquare.media/site/696/files/2024/09/attachment-Survivor-New-England-Winners-Featured-Image.jpg)
+
+-   **Game-Changing Twists**: Over the years, *Survivor* has introduced numerous twists, including the "Hidden Immunity Idol" (Season 11), "Edge of Extinction" (Season 38), and "Fire Tokens" (Season 40).
+
+### Changes in Game Format
+
+The *Survivor* format has evolved significantly throughout its run, incorporating twists to keep the game fresh and challenging. Key changes include:
+
+-   **Hidden Immunity Idols** (Season 11): Contestants could find idols hidden in the game, which would give them immunity from elimination.
+
+    ![*Figure 4: Hidden immunity idols sn47.*](https://i.etsystatic.com/5938517/r/il/70044d/6432441527/il_fullxfull.6432441527_o817.jpg){width="50%"}
+
+-   **Edge of Extinction** (Season 38): This twist allowed eliminated players to return to the game if they could survive on the "Edge" through challenges.
+
+    ![*Figure 5: Edge of extinsion.*](https://akns-images.eonline.com/eol_images/Entire_Site/2019227/rs_1024x683-190327174143-1024x683.survivor-edge-of-extinction-lp.32719.jpg?fit=around%7C1024:683&output-quality=90&crop=1024:683;center,top)
+
+-   **Fire Tokens** (Season 40): Introduced as a currency for purchasing advantages or advantages in the game, this twist allowed a new layer of strategy to unfold.
+
+### Contestant Archetypes
+
+As the show has evolved, different types of contestants have emerged. These archetypes often dictate a player's strategy:
+
+-   **The Strategist**: Players like *Parvati Shallow* or *Tony Vlachos*, who use social manipulation and strategic gameplay to outwit their competition.
+
+-   **The Physical Beast**: Players like *Rob Cesternino* and *Tyson Apostol*, known for their physical prowess and challenge domination.
+
+-   **The Social Player**: Contestants who rely on building alliances and maintaining a good social game, like *Sandra Diaz-Twine* and *Cirie Fields*.
+
+## Viewership Analysis
+
+### Demographic Insights
+
+While the show's viewership has declined, *Survivor* still maintains a loyal fanbase. A deeper analysis of demographic data reveals:
+
+-   **Younger Viewers**: While older demographics (30+) remain the show's core audience, younger viewers (18-34) have been increasingly drawn to *Survivor* thanks to streaming platforms like Paramount+.
+
+-   **Diversity**: Recent seasons have made efforts to feature a more diverse cast, which has resonated with a broader audience.
+
+### The Impact of Streaming
+
+Since moving to streaming platforms, especially with the availability of *Survivor* on Paramount+, viewership patterns have shifted. Many fans prefer to watch seasons at their own pace, leading to a drop in live viewing but an increase in on-demand streaming.
+
+## Social Media & Audience Engagement
+
+*Survivor* has a strong presence on social media, particularly on platforms like Twitter, Reddit, and Instagram. Fans actively engage with the show, sharing opinions, fan theories, and memes. This interaction has helped maintain the show's cultural relevance.
+
+## The Global Survivor Phenomenon
+
+While the U.S. version remains the most popular, *Survivor* has become a global franchise with over 50 international versions. These global iterations often bring in local cultural elements, contributing to the show's widespread appeal.
+
+![*Figure 6 : Australia.*](data:image/jpeg;base64,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)
+
+## Future of Survivor
+
+As *Survivor* continues to innovate, the future looks promising. With *Jeff Probst* as the longstanding host, there are discussions about potential changes to the format, including integrating more technological elements or exploring alternative voting mechanisms.
+
+Could we see a *Survivor* of the future where social media and online voting play a larger role?
+
+![*Figure 7: Survivor 50.*](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAkDaVzDjv9hgQWUk4S0qRiEpopPM50F6GWg&s){fig-align="left"}
+
+![*Figure 8: Survivor 50 fans decide.*](https://i.ytimg.com/vi/6syURaJEOww/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBcjamojfW0f0C5HoLPMJgFdKB5XQ){fig-align="center" width="686"}
