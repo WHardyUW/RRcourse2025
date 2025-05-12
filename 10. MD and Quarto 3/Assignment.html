@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2025-05-05">
+<meta name="dcterms.date" content="2025-05-12">
 
 <title>Assignment</title>
 <style>
@@ -92,7 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 5, 2025</p>
+      <p class="date">May 12, 2025</p>
     </div>
   </div>
   
@@ -105,9 +105,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">paste0</span>(<span class="st">"../Data/season_"</span>, params<span class="sc">$</span>season,<span class="st">".RData"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>episodes_no <span class="ot">&lt;-</span> <span class="fu">nrow</span>(season_data)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>show_start <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(season_data<span class="sc">$</span>premiere_date,<span class="sc">-</span><span class="dv">11</span>,<span class="sc">-</span><span class="dv">2</span>)[<span class="dv">1</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>show_end <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(season_data<span class="sc">$</span>premiere_date,<span class="sc">-</span><span class="dv">11</span>,<span class="sc">-</span><span class="dv">2</span>)[episodes_no]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>avg_viewers <span class="ot">&lt;-</span> <span class="fu">mean</span>(season_data<span class="sc">$</span>viewers)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>viewers_start <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(season_data<span class="sc">$</span>viewers)[<span class="dv">1</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>viewers_end <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(season_data<span class="sc">$</span>viewers)[episodes_no]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(viewers_start <span class="sc">&lt;</span>viewers_end) {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  change <span class="ot">&lt;-</span> <span class="st">"growing"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    change <span class="ot">&lt;-</span> <span class="st">"declining"</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="summary-for-season-1" class="level2">
 <h2 class="anchored" data-anchor-id="summary-for-season-1">Summary for Season 1</h2>
-<p>Season 1 of <em>Game of Thrones</em> had 10 episodes.</p>
+<p>Season 1 of <em>Game of Thrones</em> consisted of 10 episodes that aired between 2011-04-17 and 2011-06-19 on HBO. The show gathered an average of 2.515 first-day TV viewers in the US, with the number growing from 2.22 to 3.04 million by the end of the season. It had 10 episodes.</p>
 <section id="warning-spoilers-ahead" class="level3">
 <h3 class="anchored" data-anchor-id="warning-spoilers-ahead"><strong>(<em>Warning:</em> spoilers ahead)</strong></h3>
 <hr>
@@ -128,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <p>You can see how the viewership of the episodes changed in Figure 1.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(season_data<span class="sc">$</span>viewers, <span class="at">type=</span><span class="st">"l"</span>, <span class="at">col=</span><span class="st">"red"</span>, <span class="at">lwd=</span><span class="dv">5</span>, <span class="at">xlab =</span> <span class="st">"Episode number"</span>, <span class="at">ylab =</span> <span class="st">"1st day TV viewers in the US (millions)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(season_data<span class="sc">$</span>viewers, <span class="at">type=</span><span class="st">"l"</span>, <span class="at">col=</span><span class="st">"red"</span>, <span class="at">lwd=</span><span class="dv">5</span>, <span class="at">xlab =</span> <span class="st">"Episode number"</span>, <span class="at">ylab =</span> <span class="st">"1st day TV viewers in the US (millions)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Assignment_files/figure-html/viewers_plot-1.png" class="img-fluid" width="672"></p>
 </div>

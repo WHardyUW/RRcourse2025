@@ -11,9 +11,25 @@ params:
 load(paste0("../Data/season_", params$season,".RData"))
 ```
 
+```{r}
+library(stringr)
+episodes_no <- nrow(season_data)
+show_start <- str_sub(season_data$premiere_date,-11,-2)[1]
+show_end <- str_sub(season_data$premiere_date,-11,-2)[episodes_no]
+avg_viewers <- mean(season_data$viewers)
+viewers_start <- str_sub(season_data$viewers)[1]
+viewers_end <- str_sub(season_data$viewers)[episodes_no]
+
+if(viewers_start <viewers_end) {
+  change <- "growing"
+  } else {
+    change <- "declining"
+  }
+```
+
 ## Summary for Season `r params$season`
 
-Season `r params$season` of *Game of Thrones* had `r nrow(season_data)` episodes.
+Season `r params$season` of *Game of Thrones* consisted of `r episodes_no` episodes that aired between `r show_start` and `r show_end` on HBO. The show gathered an average of `r avg_viewers` first-day TV viewers in the US, with the number `r change` from `r viewers_start` to `r viewers_end` million by the end of the season. It had `r nrow(season_data)` episodes. 
 
 ### **(*Warning:* spoilers ahead)**
 
