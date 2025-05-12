@@ -3,7 +3,7 @@ title: "Game of Thrones – Season `r params$season` Report"
 author: "Jack Shephard-Thorn"
 date: "`r format(Sys.Date(), '%d %B %Y')`"
 params:
-  season: 1          # change in render() or YAML to pick a season (1–8)
+  season: 1
 output:
   html_document:
     toc: true
@@ -14,23 +14,20 @@ output:
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 season    <- params$season
-data_path <- sprintf("../Data/season_%d.RData", season)
-load(data_path)       
+load(sprintf("../Data/season_%d.RData", season))
 
 library(dplyr)
 library(ggplot2)
 library(rvest)
+```
 
 # Game of Thrones - Season 1 summary in numbers
 
-### __(*Warning:* spoilers ahead)__
-
+### **(*Warning:* spoilers ahead)**
 
 ### Overview
 
 ```{r overview, results='asis'}
-library(rvest)   # load here or in your setup chunk
-
 wiki_url <- sprintf(
   "https://en.wikipedia.org/wiki/Game_of_Thrones_(season_%d)", season)
 
@@ -38,31 +35,30 @@ overview <- read_html(wiki_url) |>
   html_element("#mw-content-text p") |>
   html_text2()
 
-cat(overview)    # prints the paragraph into the document
-
+cat(overview)
 ```
+
 ### Season `r season` summary
 
 ```{r season_stats, echo = FALSE}
-n_episodes   <- nrow(season_data)
-first_air    <- min(season_data$air_date)
-last_air     <- max(season_data$air_date)
-avg_viewers  <- mean(season_data$viewers, na.rm = TRUE)
+n_episodes  <- nrow(season_data)
+first_air   <- min(season_data$air_date)
+last_air    <- max(season_data$air_date)
+avg_viewers <- mean(season_data$viewers, na.rm = TRUE)
 
 peak_idx     <- which.max(season_data$viewers)
-peak_ep      <- season_data$episode_name[peak_idx]
+peak_ep      <- season_data$title[peak_idx]
 peak_viewers <- season_data$viewers[peak_idx]
 ```
 
-Season `r season` consisted of **`r n_episodes` episodes** …  
+Season `r season` consisted of **`r n_episodes` episodes** …\
 The most-watched episode was **“`r peak_ep`”** with **`r peak_viewers` million** viewers, in which:
 
-> "The North secedes … [full quote] ..."
+> "The North secedes … \[full quote\] ..."
 
-`The most popular episode of the season was "Fire and Blood", in which:
+\`The most popular episode of the season was "Fire and Blood", in which:
 
-> "The North secedes from the Seven Kingdoms and proclaims Robb as king. With Jaime as the Starks' prisoner and Robert's two brothers, Stannis and Renly, each challenging Joffrey's claim to the throne, Tywin appoints Tyrion as acting King's Hand, while Tywin fights to defend Joffrey's reign. Jon attempts to desert the Night's Watch to avenge Ned and join Robb, but his Night's Watch brothers convince him to honor his oath. Jon joins an expedition to search for Benjen Stark beyond` the Wall. Yoren, a Night's Watch recruiter, smuggles Arya out of King's Landing disguised as a boy, while Joffrey intends to crown Sansa his queen, despite executing her father. Daenerys's baby is born deformed and dead, and Drogo is left in a vegetative state by the witch's treacherous magic. Daenerys compassionately ends Drogo's life. She places the three dragon eggs on Drogo's funeral pyre and sets it afire, also burning the witch alive. Ignoring Jorah's pleas, she walks into the flames. When the embers die the following morning, Daenerys is found in the ashes, unharmed, flanked by three newly-hatched baby dragons. Jorah and other witnesses kneel before her."
-
+> "The North secedes from the Seven Kingdoms and proclaims Robb as king. With Jaime as the Starks' prisoner and Robert's two brothers, Stannis and Renly, each challenging Joffrey's claim to the throne, Tywin appoints Tyrion as acting King's Hand, while Tywin fights to defend Joffrey's reign. Jon attempts to desert the Night's Watch to avenge Ned and join Robb, but his Night's Watch brothers convince him to honor his oath. Jon joins an expedition to search for Benjen Stark beyond\` the Wall. Yoren, a Night's Watch recruiter, smuggles Arya out of King's Landing disguised as a boy, while Joffrey intends to crown Sansa his queen, despite executing her father. Daenerys's baby is born deformed and dead, and Drogo is left in a vegetative state by the witch's treacherous magic. Daenerys compassionately ends Drogo's life. She places the three dragon eggs on Drogo's funeral pyre and sets it afire, also burning the witch alive. Ignoring Jorah's pleas, she walks into the flames. When the embers die the following morning, Daenerys is found in the ashes, unharmed, flanked by three newly-hatched baby dragons. Jorah and other witnesses kneel before her."
 
 You can see how the viewership of the episodes changed in Figure 1.
 
@@ -72,8 +68,7 @@ season_data |>
   ggplot(aes(episode, viewers)) +
   geom_line(size = 1.2) +
   geom_point(size = 2) +
-  labs(x = "Episode number",
-       y = "Viewers (millions)") +
+  labs(x = "Episode number", y = "Viewers (millions)") +
   theme_minimal(base_size = 12)
 
 ```
@@ -82,20 +77,10 @@ Finally, the episodes with the above-average viewership were:
 
 ```{r top_eps, echo = FALSE, results='asis'}
 season_data |>
-  mutate(`No. in season` = row_number()) |>
-  filter(viewers > avg_viewers) |>              
-                                                
-  select(`No. in season`,
-         Title        = episode_name,
-         `Directed by` = director) |>           
-  knitr::kable()                                
+  filter(viewers > avg_viewers) |>
+  select(no_season, title, directed_by) |>
+  knitr::kable(
+    col.names = c("No. in season", "Title", "Directed by")
+  )
 ```
 
-```{r}
-for (s in 1:8) {
-  rmarkdown::render("Assignment.qmd",
-                    params      = list(season = s),
-                    output_file = sprintf("Season_%d_report.html", s))
-}
-
-```
