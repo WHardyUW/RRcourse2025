@@ -1,15 +1,56 @@
 ---
-title: "Assignment"
-author: ""
-date: today
-output: html_document
+title: "Game of Thrones"
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+  docx:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    page-layout: article
+    include-in-header:
+      text: "Running head: Game of thrones"
+    include-in-footer:
+      text: "Page \\thepage"
+    df-print: kable
+engine: jupyter
 ---
 
-```{r}
-load("../Data/season_1.RData")
+```{python}
+#| tags: [parameters]
+
+season = "season_4"
 ```
 
-# Game of Thrones - Season 1 summary in numbers
+```{python}
+import pandas as pd
+from pathlib import Path
+import os
+from IPython.display import Markdown, display
+
+# List of seasons to process
+seasons = ["season_1", "season_2", "season_3", "season_4", 
+           "season_5", "season_6", "season_7", "season_8"]
+
+# Construct the base data directory path
+data_dir = Path("../Data/")
+
+# Loop through each season
+file_path = os.path.join(data_dir, season + '.csv')
+print(file_path)
+df = pd.read_csv(file_path)
+
+```
+ 
+```{python}
+display(Markdown(f"""
+### Game of Thrones - {season} summary in numbers
+"""))
+
+```
+
 
 ### __(*Warning:* spoilers ahead)__
 
@@ -23,30 +64,106 @@ Set on the fictional continents of Westeros and Essos, Game of Thrones has a lar
 
 ***
 
-### Season 1 summary
+```{python}
+display(Markdown(f"""
+### {season} - episode descriptions
+"""))
 
-Season 1 of Game of Thrones consisted of 10 episodes that aired between April 17 and June 19, 2011 on HBO. The show gathered an average of 2.515 first-day TV viewers in the US, with the number growing from 2.22 to 3.04 million by the end of the season.
+```
 
-The most popular episode of the season was "Fire and Blood", in which:
+```{python}
 
-> "The North secedes from the Seven Kingdoms and proclaims Robb as king. With Jaime as the Starks' prisoner and Robert's two brothers, Stannis and Renly, each challenging Joffrey's claim to the throne, Tywin appoints Tyrion as acting King's Hand, while Tywin fights to defend Joffrey's reign. Jon attempts to desert the Night's Watch to avenge Ned and join Robb, but his Night's Watch brothers convince him to honor his oath. Jon joins an expedition to search for Benjen Stark beyond the Wall. Yoren, a Night's Watch recruiter, smuggles Arya out of King's Landing disguised as a boy, while Joffrey intends to crown Sansa his queen, despite executing her father. Daenerys's baby is born deformed and dead, and Drogo is left in a vegetative state by the witch's treacherous magic. Daenerys compassionately ends Drogo's life. She places the three dragon eggs on Drogo's funeral pyre and sets it afire, also burning the witch alive. Ignoring Jorah's pleas, she walks into the flames. When the embers die the following morning, Daenerys is found in the ashes, unharmed, flanked by three newly-hatched baby dragons. Jorah and other witnesses kneel before her."
-
-***
+for description in df["description"]:
+    display(Markdown(f"""
+    > {description}
+    
+    """))  # Added extra newline for better spacing
+```
 
 You can see how the viewership of the episodes changed in Figure 1.
 
-```{r}
-#| label = "viewers_plot"
-plot(season_data$viewers, type="l", col="red", lwd=5, xlab = "Episode number", ylab = "1st day TV viewers in the US (millions)")
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
+
+# Create the plot
+plt.figure(figsize=(14, 7))
+
+# Create histogram-style bars
+bars = plt.bar(df['no_season'], df['viewers'], 
+               color='darkred', 
+               alpha=0.7,
+               edgecolor='black',
+               width=0.6)
+
+# Customize the plot
+plt.title('Game of Thrones ' + str(season) + 'Viewer Ratings by Episode', fontsize=16, pad=20)
+plt.xlabel('Episode Number', fontsize=12)
+plt.ylabel('Viewers (Millions)', fontsize=12)
+plt.grid(True, linestyle='--', alpha=0.3, axis='y')
+
+# Ensure x-axis shows whole numbers for episode numbers
+plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
+
+# Add value labels on top of each bar
+for bar in bars:
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2., height,
+             f'{height:.2f}',
+             ha='center', va='bottom',
+             fontsize=9)
+
+# Add episode titles below each bar
+for i, row in df.iterrows():
+    plt.text(row['no_season'], -0.2, 
+             row['title'], 
+             rotation=45,
+             ha='right',
+             va='top',
+             fontsize=8,
+             alpha=0.8)
+
+# Adjust margins to accommodate episode titles
+plt.subplots_adjust(bottom=0.3)
+
+# Add some thematic styling
+plt.gca().set_facecolor('#f8f8f8')
+plt.gcf().set_facecolor('#f0f0f0')
+
+plt.tight_layout()
+plt.show()
 ```
 
 ***
+```{python}
 
-Finally, the episodes with the above-average viewership were:
+from IPython.display import Markdown
+import pandas as pd
 
-| No. in season | Title  | Directed by  |
-|:------        |:-----: |:------:      |
-| 5             | "The Wolf and the Lion"  | Brian Kirk      |
-| 8             | "The Pointy End" | Daniel Minahan      |
-| 9             | "Baelor" | Alan Taylor      |
-| 10            | "Fire and Blood" | Alan Taylor      |
+# Calculate total viewers and average
+total_viewers = df['viewers'].sum()
+avg_view = total_viewers / len(df)
+
+# Filter episodes with above-average viewership
+above_avg = df[df['viewers'] >= avg_view]
+
+# Create Markdown table
+table_header = "| Episode | Title | Viewers (Millions) |\n|--------|-------|-------------------|"
+table_rows = []
+
+for _, row in above_avg.iterrows():
+    table_rows.append(f"| {int(row['no_season'])} | {row['title']} | {row['viewers']:.2f} |")
+
+# Combine header and rows
+markdown_table = f"""
+**Episodes with Above-Average Viewership (Average: {avg_view:.2f} million viewers)**
+
+{table_header}
+{"\n".join(table_rows)}
+"""
+
+# Display the table
+display(Markdown(markdown_table))
+
+```

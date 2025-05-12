@@ -20,6 +20,11 @@ params:
   data: file.csv
 ---
 
+```{python}
+#| tags: [parameters]
+
+season = "Season 2"
+```
 ---
 
 # Parameters
