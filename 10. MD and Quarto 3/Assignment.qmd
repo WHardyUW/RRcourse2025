@@ -8,8 +8,8 @@ params:
 ---
 
 ```{r}
-season_file <- paste0("../Data/season_", params$season, ".RData")
-load(season_file)
+load(paste0("../Data/season_", params$season, ".RData"))
+
 
 ```
 
@@ -27,9 +27,25 @@ Set on the fictional continents of Westeros and Essos, Game of Thrones has a lar
 
 ------------------------------------------------------------------------
 
-### Season 1 summary
+### `r params$season` summary
 
-Season 1 of Game of Thrones consisted of 10 episodes that aired between April 17 and June 19, 2011 on HBO. The show gathered an average of 2.515 first-day TV viewers in the US, with the number growing from 2.22 to 3.04 million by the end of the season.
+```{r}
+library(stringr)
+episodes_no <- nrow(season_data)
+show_start <- str_sub(season_data$premiere_data, -11, -2)[1]
+show_end <- str_sub(season_data$premiere_date, -11, -2)[episodes_no]
+avg_viewers <- mean(season_data$viewers)
+viewers_start <- season_data$viewers[1]
+viewers_end <- season_data$viewers[episodes_no]
+
+if (viewers_start < viewers_end) {
+    change <- "growing"
+} else {
+   change <- "decling"
+}
+```
+
+Season `r params$season` of Game of Thrones consisted of `r episodes_no` episodes that aired between `r show_start` and `r show_end` on HBO. The show gathered an average of `r avg_viewers` first-day TV viewers in the US, with the number `r change` growing from `r viewers_start` to `r viewers_end` million by the end of the season.
 
 The most popular episode of the season was "Fire and Blood", in which:
 
