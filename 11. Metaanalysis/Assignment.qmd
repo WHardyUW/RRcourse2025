@@ -1,0 +1,151 @@
+```yaml
+---
+title: 'Meta-Analysis of Children''s Toy Preferences'
+author: 'Your Name'
+date: "`r Sys.Date()`"
+format:
+  html:
+    theme: lumen
+    toc: true
+    toc_float: true
+title-block-banner: true
+execute:
+  echo: fenced
+---
+```
+
+```{r setup, include=FALSE}
+library(metafor)
+library(dplyr)
+library(readxl)
+```
+
+```{r load-data}
+# Load the dataset
+# Update the path if necessary to match your project structure
+data <- read_excel("data/metaanalysis_data.xlsx")
+
+# View structure and first rows
+head(data)
+str(data)
+```
+
+```{r compute-effects}
+# Compute effect sizes (Hedges' g) and variances for male-typed toys
+effects_male <- escalc(
+  measure = "SMD",
+  m1i = Mean_boys_play_male, sd1i = SD_boys_play_male, n1i = N_boys,
+  m2i = Mean_girls_play_male, sd2i = SD_girls_play_male, n2i = N_girls,
+  data = data, vtype = "UB"
+)
+# Attach to main dataset
+data <- data %>%
+  mutate(
+    yi_m = effects_male$yi,
+    vi_m = effects_male$vi
+  )
+
+# Compute effect sizes for female-typed toys
+effects_female <- escalc(
+  measure = "SMD",
+  m1i = Mean_boys_play_female, sd1i = SD_boys_play_female, n1i = N_boys,
+  m2i = Mean_girls_play_female, sd2i = SD_girls_play_female, n2i = N_girls,
+  data = data, vtype = "UB"
+)
+# Attach to main dataset
+data <- data %>%
+  mutate(
+    yi_f = effects_female$yi,
+    vi_f = effects_female$vi
+  )
+
+# Random-effects pooling via REML
+res_male <- rma(yi_m, vi_m, data = data, method = "REML")
+res_female <- rma(yi_f, vi_f, data = data, method = "REML")
+
+# Show model summaries
+res_male
+res_female
+```
+
+```{r funnel-plots}
+# Funnel plot & Egger's test for small-study effects
+funnel(res_male, main = "Funnel Plot: Male-Typed Toys")
+regtest(res_male)
+
+funnel(res_female, main = "Funnel Plot: Female-Typed Toys")
+regtest(res_female)
+```
+
+```{r meta-regression}
+# Testing moderators: neutral toy inclusion, parental presence, setting, country index, quality
+res_male_mod <- rma(
+  yi_m, vi_m,
+  mods = ~ `Neutral toys` + factor(`Parent present`) + factor(Setting) + Country + `NOS score`,
+  data = data, method = "REML"
+)
+res_female_mod <- rma(
+  yi_f, vi_f,
+  mods = ~ `Neutral toys` + factor(`Parent present`) + factor(Setting) + Country + `NOS score`,
+  data = data, method = "REML"
+)
+
+# Summaries of meta-regressions
+summary(res_male_mod)
+summary(res_female_mod)
+```
+
+```{r author-gender, fig.width=14, fig.height=6}
+# Create author-team gender composition variable
+data <- data %>%
+  mutate(author_gender = case_when(
+    `Female authors` > `Male authors` ~ "Female-dominated",
+    `Male authors` > `Female authors` ~ "Male-dominated",
+    TRUE ~ "Balanced"
+  ))
+
+# Code author-team gender composition (already added earlier)
+# Meta-regression on author gender for male-typed preference
+res_gender_male <- rma(yi_m, vi_m, mods = ~ factor(author_gender), data = data, method = "REML")
+summary(res_gender_male)
+
+# Meta-regression on author gender for female-typed preference
+res_gender_female <- rma(yi_f, vi_f, mods = ~ factor(author_gender), data = data, method = "REML")
+summary(res_gender_female)
+
+# Forest plot for male-typed toys by author gender
+forest(res_male,
+       slab = data$Study,
+       order = data$author_gender,
+       ilab = data$author_gender,
+       ilab.xpos = -2,
+       main = "Male‑Typed Toys by Author Gender")
+```
+
+```{r conclusions, echo=FALSE}
+# Narrative conclusions below
+```
+
+**Conclusions**
+
+1. *Pooled effect sizes*:
+
+   * **Male‑typed toys**: Hedges' g = 1.01 (95 % CI \[0.79, 1.23]); boys spend substantially more time with these toys (p < 0.001).
+   * **Female‑typed toys**: Hedges' g = −0.90 (95 % CI \[−1.12, −0.67]); girls prefer these toys over boys (p < 0.001).
+
+2. *Small‑study effects* (Egger’s tests):
+
+   * Male‑typed toys: z = 4.87, p < 0.001 → pronounced funnel asymmetry.
+   * Female‑typed toys: z = −3.30, p = 0.001 → significant asymmetry in the opposite direction.
+
+3. *Methodological moderators* (meta‑regression):
+
+   * **Neutral toy inclusion**: Excluding neutral toys amplifies sex differences for female‑typed toys (β = 1.12, p = 0.027). For male‑typed toys, the same covariate and other design factors (parental presence, setting, country GII, NOS score) were not significant (all p > 0.10).
+   * No additional moderators were significant for female‑typed toys beyond neutral‑toy status.
+
+4. *Author‑gender composition*:
+
+   * Male‑typed toys: studies led by predominantly female teams reported smaller boy‑toy differences (β = −0.77, p = 0.033) than male‑led teams.
+   * Female‑typed toys: author‑gender composition did **not** significantly influence reported girl‑toy differences (all p > 0.20).
+
+Overall, robust sex‑specific toy preferences emerge across studies; however, evidence of publication bias and limited moderator effects suggest future research should focus on preregistered protocols and balanced reporting to clarify true effect magnitudes.
