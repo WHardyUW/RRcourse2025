@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Xinyue Fang">
+<meta name="dcterms.date" content="2025-05-15">
+
+<title>Assignment-Meta</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Assignment -Xinyue  - meta_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Assignment -Xinyue  - meta_files/libs/quarto-html/quarto.js"></script>
+<script src="Assignment -Xinyue  - meta_files/libs/quarto-html/popper.min.js"></script>
+<script src="Assignment -Xinyue  - meta_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Assignment -Xinyue  - meta_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Assignment -Xinyue  - meta_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Assignment -Xinyue  - meta_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Assignment -Xinyue  - meta_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Assignment -Xinyue  - meta_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Assignment -Xinyue  - meta_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Assignment-Meta</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Xinyue Fang </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 15, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Meta_Analysis_Data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"C:/Users/86177/Desktop/Git/RRcourse2025/11. Metaanalysis/data/metaanalysis_data.xlsx"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Meta_Analysis_Data, <span class="dv">5</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 28
+  Study            `Female authors` `Male authors` `Age (months)` N_boys N_girls
+  &lt;chr&gt;                       &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 Alexander &amp; Sae…                2              0           19.5     47      47
+2 Arthur (2014)                   1              0           19       22      18
+3 Berenbaum &amp; Hin…                2              0           65.8     18      18
+4 Berenbaum &amp; Sny…                2              0           93.1     19      19
+5 Doering et al (…                1              3           87       15      15
+# ℹ 22 more variables: Mean_boys_play_male &lt;dbl&gt;, SD_boys_play_male &lt;dbl&gt;,
+#   Mean_girls_play_male &lt;dbl&gt;, SD_girls_play_male &lt;dbl&gt;,
+#   Mean_boys_play_female &lt;dbl&gt;, SD_boys_play_female &lt;dbl&gt;,
+#   Mean_girls_play_female &lt;dbl&gt;, SD_girls_play_female &lt;dbl&gt;,
+#   `Neutral toys` &lt;dbl&gt;, Year &lt;dbl&gt;, `Parent present` &lt;dbl&gt;, Setting &lt;dbl&gt;,
+#   Country &lt;dbl&gt;, `Case definition adequate` &lt;chr&gt;,
+#   `Representativeness of cases` &lt;chr&gt;, `Selection of controls` &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">metacont</span>(<span class="at">n.e =</span> N_boys,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean.e =</span> Mean_boys_play_male,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd.e =</span> SD_boys_play_male,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">n.c =</span> N_girls,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean.c =</span> Mean_girls_play_male,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd.c =</span> SD_girls_play_male,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">studlab =</span> Study, </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> Meta_Analysis_Data,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">sm =</span> <span class="st">"SMD"</span>, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">method.smd =</span> <span class="st">"Hedges"</span>, <span class="co"># Hedges' g</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">hakn =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">random =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Use argument 'method.random.ci' instead of 'hakn' (deprecated).</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(m, <span class="at">main =</span> <span class="st">"Funnel plot of effect sizes"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Assignment--Xinyue----meta_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Finding: Funnel plot for the meta-analysis showed a degree of asymmetry, with more points are on the right, which shows more studies reporting big effects. But the right side points have large standard error.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">metareg</span>(m, <span class="sc">~</span> <span class="fu">factor</span>(Setting))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Mixed-Effects Model (k = 27; tau^2 estimator: REML)
+
+tau^2 (estimated amount of residual heterogeneity):     0.2535 (SE = 0.1020)
+tau (square root of estimated tau^2 value):             0.5035
+I^2 (residual heterogeneity / unaccounted variability): 76.27%
+H^2 (unaccounted variability / sampling variability):   4.21
+R^2 (amount of heterogeneity accounted for):            0.00%
+
+Test for Residual Heterogeneity:
+QE(df = 24) = 85.3812, p-val &lt; .0001
+
+Test of Moderators (coefficients 2:3):
+F(df1 = 2, df2 = 24) = 0.6400, p-val = 0.5361
+
+Model Results:
+
+                  estimate      se    tval  df    pval    ci.lb   ci.ub     
+intrcpt             0.7934  0.2456  3.2309  24  0.0036   0.2866  1.3002  ** 
+factor(Setting)2    0.2514  0.2949  0.8524  24  0.4024  -0.3573  0.8602     
+factor(Setting)3    0.3983  0.3640  1.0942  24  0.2847  -0.3530  1.1496     
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>A meta-regression analysis was conducted to assess whether the study setting moderated the observed effect sizes. The intercept (representing Setting 1) was significant (b = 0.7934, p = 0.0036), indicating a moderate positive effect. However, neither Setting 2 (b = 0.2514, p = 0.4024) nor Setting 3 (b = 0.3983, p = 0.2847) differed significantly from Setting 1, suggesting that study setting did not significantly moderate the effect.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">metareg</span>(m, <span class="sc">~</span> Country)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 1 study with NAs omitted from model fitting.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Mixed-Effects Model (k = 26; tau^2 estimator: REML)
+
+tau^2 (estimated amount of residual heterogeneity):     0.2481 (SE = 0.1008)
+tau (square root of estimated tau^2 value):             0.4981
+I^2 (residual heterogeneity / unaccounted variability): 75.49%
+H^2 (unaccounted variability / sampling variability):   4.08
+R^2 (amount of heterogeneity accounted for):            0.00%
+
+Test for Residual Heterogeneity:
+QE(df = 24) = 81.7928, p-val &lt; .0001
+
+Test of Moderators (coefficient 2):
+F(df1 = 1, df2 = 24) = 0.5405, p-val = 0.4693
+
+Model Results:
+
+         estimate      se     tval  df    pval    ci.lb   ci.ub     
+intrcpt    1.2385  0.3594   3.4463  24  0.0021   0.4968  1.9802  ** 
+Country   -1.1688  1.5898  -0.7352  24  0.4693  -4.4501  2.1124     
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>This meta-regression was conducted to examine whether the country in which the study was conducted moderated the observed gender differences in toy preference. The intercept was significant (b = 1.2385, p = 0.0021), indicating a strong positive effect in the reference country. However, the effect size was not significantly moderated by gender inequality index (b = -1.1688, p = 0.4693), suggesting that toy preference differences were relatively consistent across countries with different gender inequality index included in this analysis.</p>
+<p>Here I don’t know why shows there is no update,meta. So I didn’t put it in the code chunks.</p>
+<p>m_gender &lt;- update.meta(m, byvar = author_gender) forest(m_gender, main = “Effect by Author Gender”)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(m)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "metacont" "meta"    </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Meta_Analysis_Data <span class="ot">&lt;-</span> Meta_Analysis_Data <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_authors =</span> <span class="st">`</span><span class="at">Male authors</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">Female authors</span><span class="st">`</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">female_ratio =</span> <span class="st">`</span><span class="at">Female authors</span><span class="st">`</span> <span class="sc">/</span> total_authors,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">author_gender =</span> <span class="fu">case_when</span>(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Female authors</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="st">`</span><span class="at">Male authors</span><span class="st">`</span> <span class="sc">~</span> <span class="st">"Mostly Female"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Male authors</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="st">`</span><span class="at">Female authors</span><span class="st">`</span> <span class="sc">~</span> <span class="st">"Mostly Male"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Female authors</span><span class="st">`</span> <span class="sc">==</span> <span class="st">`</span><span class="at">Male authors</span><span class="st">`</span> <span class="sc">~</span> <span class="st">"Equal"</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Meta_Analysis_Data, <span class="fu">aes</span>(<span class="at">x =</span> author_gender, <span class="at">y =</span> N_boys <span class="sc">+</span> N_girls)) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Sample Size by Author Gender"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Author Gender Composition"</span>, <span class="at">y =</span> <span class="st">"Total Sample Size"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Assignment--Xinyue----meta_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Teams with more female authors have the largest median sample sizes and Wide distribution and high volume of data, may prefer larger samples, may be better resourced or more intensively researched.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Meta_Analysis_Data, <span class="fu">aes</span>(<span class="at">x =</span> author_gender, <span class="at">y =</span> <span class="st">`</span><span class="at">Age (months)</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Age of Children by Author Gender"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Author Gender Composition"</span>, <span class="at">y =</span> <span class="st">"Age (months)"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Assignment--Xinyue----meta_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Teams with more female authors had larger sample sizes, were more widely distributed, and had the smallest median age. This suggests that teams with more females tend to study younger children.</p>
+<p>So the author gender affets the effect.</p>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

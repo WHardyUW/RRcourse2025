@@ -1,0 +1,123 @@
+---
+title: "Assignment-Meta"
+author: "Xinyue Fang"
+date: today
+format:  
+  html:
+    theme: lumen
+    toc: true
+    toc_float: true
+title-block-banner: true
+execute:
+  echo: fenced
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+
+```{r}
+#| label = "setup",
+#| include = FALSE
+library(meta)
+library(metafor)
+library(dplyr)
+library(readxl)
+#setwd("")
+```
+
+```{r}
+Meta_Analysis_Data <- read_excel("C:/Users/86177/Desktop/Git/RRcourse2025/11. Metaanalysis/data/metaanalysis_data.xlsx")
+head(Meta_Analysis_Data, 5)
+```
+
+```{r}
+m <- metacont(n.e = N_boys,
+              mean.e = Mean_boys_play_male,
+              sd.e = SD_boys_play_male,
+              n.c = N_girls,
+              mean.c = Mean_girls_play_male,
+              sd.c = SD_girls_play_male,
+              studlab = Study, 
+              data = Meta_Analysis_Data,
+              sm = "SMD", 
+              method.smd = "Hedges", # Hedges' g
+              hakn = TRUE,
+              random = TRUE) 
+
+```
+
+```{r}
+funnel(m, main = "Funnel plot of effect sizes")
+
+```
+
+Finding: Funnel plot for the meta-analysis showed a degree of asymmetry, with more points are on the right, which shows more studies reporting big effects. But the right side points have large standard error.
+
+```{r}
+metareg(m, ~ factor(Setting))
+
+
+```
+
+A meta-regression analysis was conducted to assess whether the study setting moderated the observed effect sizes. The intercept (representing Setting 1) was significant (b = 0.7934, p = 0.0036), indicating a moderate positive effect. However, neither Setting 2 (b = 0.2514, p = 0.4024) nor Setting 3 (b = 0.3983, p = 0.2847) differed significantly from Setting 1, suggesting that study setting did not significantly moderate the effect.
+
+```{r}
+metareg(m, ~ Country)
+
+
+```
+
+This meta-regression was conducted to examine whether the country in which the study was conducted moderated the observed gender differences in toy preference. The intercept was significant (b = 1.2385, p = 0.0021), indicating a strong positive effect in the reference country. However, the effect size was not significantly moderated by gender inequality index (b = -1.1688, p = 0.4693), suggesting that toy preference differences were relatively consistent across countries with different gender inequality index included in this analysis.
+
+Here I don't know why shows there is no update,meta. So I didn't put it in the code chunks.
+
+m_gender <- update.meta(m, byvar = author_gender)
+forest(m_gender, main = "Effect by Author Gender")
+
+
+```{r}
+class(m)
+
+
+```
+
+
+```{r}
+Meta_Analysis_Data <- Meta_Analysis_Data %>%
+  mutate(
+    total_authors = `Male authors` + `Female authors`,
+    female_ratio = `Female authors` / total_authors,
+    author_gender = case_when(
+      `Female authors` > `Male authors` ~ "Mostly Female",
+      `Male authors` > `Female authors` ~ "Mostly Male",
+      `Female authors` == `Male authors` ~ "Equal"
+    )
+  )
+
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(Meta_Analysis_Data, aes(x = author_gender, y = N_boys + N_girls)) +
+  geom_boxplot(fill = "skyblue") +
+  labs(title = "Sample Size by Author Gender",
+       x = "Author Gender Composition", y = "Total Sample Size")
+
+
+```
+
+Teams with more female authors have the largest median sample sizes and Wide distribution and high volume of data, may prefer larger samples, may be better resourced or more intensively researched.
+
+```{r}
+ggplot(Meta_Analysis_Data, aes(x = author_gender, y = `Age (months)`)) +
+  geom_boxplot(fill = "lightgreen") +
+  labs(title = "Age of Children by Author Gender",
+       x = "Author Gender Composition", y = "Age (months)")
+
+```
+
+Teams with more female authors had larger sample sizes, were more widely distributed, and had the smallest median age. This suggests that teams with more females tend to study younger children.
+
+So the author gender affets the effect.
