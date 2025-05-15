@@ -1,0 +1,122 @@
+---
+title: "Assignment Metaanalysis"
+author: "Jack Shephard-Thorn"
+format: html
+editor: visual
+---
+
+```{r}
+library(readxl)
+dat <- read_excel("data/metaanalysis_data.xlsx")
+
+str(dat)
+```
+
+```{r compute_effects, echo=FALSE}
+library(metafor)
+library(dplyr)
+
+# 1) Compute SMD for boys vs girls on male‐typed toys
+dat_es_male <- escalc(
+  measure   = "SMD",
+  m1i       = Mean_boys_play_male,
+  sd1i      = SD_boys_play_male,
+  n1i       = N_boys,
+  m2i       = Mean_girls_play_male,
+  sd2i      = SD_girls_play_male,
+  n2i       = N_girls,
+  data      = dat,
+  var.names = c("yi_male", "vi_male")
+)
+
+# 2) Compute SMD for boys vs girls on female‐typed toys
+dat_es_female <- escalc(
+  measure   = "SMD",
+  m1i       = Mean_boys_play_female,
+  sd1i      = SD_boys_play_female,
+  n1i       = N_boys,
+  m2i       = Mean_girls_play_female,
+  sd2i      = SD_girls_play_female,
+  n2i       = N_girls,
+  data      = dat,
+  var.names = c("yi_female", "vi_female")
+)
+
+# 3) Stack them and rename so you have a single yi & vi
+dat_es <- bind_rows(
+  dat_es_male   %>% rename(yi = yi_male,   vi = vi_male)   %>% mutate(outcome = "male_toys"),
+  dat_es_female %>% rename(yi = yi_female, vi = vi_female) %>% mutate(outcome = "female_toys")
+)
+
+# Now dat_es has columns:
+#   yi    = standardized effect size,
+#   vi    = its variance,
+#   outcome = toy type,
+#   plus all original study‐level covariates
+str(dat_es)
+```
+
+```{r}
+res_RE <- rma(yi, vi, data = dat_es, method = "REML")
+print(res_RE, digits=2)
+
+```
+
+```{r}
+funnel(res_RE, 
+       xlab="Standardized mean difference", 
+       ylab="Precision (1/SE)")
+
+```
+
+```{r}
+res_mod1 <- rma(yi, vi, mods = ~ factor(Neutral.toys) + factor(Parent.present) +
+                              factor(Setting) + Country,
+                data = dat_es, method="REML")
+print(res_mod1)
+
+
+# 1) Define the star‐variable names exactly as in dat_es
+star_vars <- c(
+  "Case.definition.adequate",
+  "Representativeness.of.cases",
+  "Selection.of.controls",
+  "Parental.opinion",
+  "Comparability.of.both.groups",
+  "Ascertainment.of.behaviour",
+  "Same.ascertainment.method.for.both.groups",
+  "Non.response.rate"
+)
+
+# 2) Recode "*"→1, "X"→0 in place
+dat_es[star_vars] <- lapply(dat_es[star_vars], function(x) ifelse(x == "*", 1L, 0L))
+
+# 3) Compute quality_score as the row‐sum of those columns
+dat_es$quality_score <- rowSums(dat_es[star_vars])
+
+# 4) Run the meta‐regression
+res_mod2 <- rma(yi, vi, mods = ~ quality_score, data = dat_es)
+print(res_mod2)
+
+```
+
+```{r res_gender, echo=FALSE}
+library(dplyr)
+library(metafor)
+
+# Derive author_gender from the dotted names
+dat_es <- dat_es %>%
+  mutate(author_gender = case_when(
+    Female.authors > Male.authors ~ "female",
+    Female.authors < Male.authors ~ "male",
+    TRUE                           ~ "mixed"
+  ))
+
+# Run the meta‐regression
+res_gender <- rma(yi, vi, mods = ~ factor(author_gender), data = dat_es, method="REML")
+print(res_gender)
+```
+
+
+
+
