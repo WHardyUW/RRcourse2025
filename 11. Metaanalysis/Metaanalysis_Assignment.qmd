@@ -1,0 +1,106 @@
+---
+title: "11. Metaanalysis"
+author: "Edwell B Mandebvu"
+format: html
+editor: visual
+---
+
+# **ASSIGNMENT**
+
+1.  **Import the data from the `data\metaanalysis_data.xlsx` file. The data come from the meta-analysis study: [Todd et al., 2017 - Sex differences in children’s toy preferences: A systematic review, meta‐regression, and meta‐analysis](https://onlinelibrary.wiley.com/doi/full/10.1002/icd.2064)**
+
+```{r}
+library(readxl)
+file_path <- "M:/UW QF/Sem 2/Reproducible Research/RRcourse2025/11. Metaanalysis/data/metaanalysis_data.xlsx"
+raw <- read_excel(file_path)
+View(raw)
+```
+
+### **A. combine the effects**
+
+```{r}
+library(metafor)
+```
+
+```{r}
+ df_es <- escalc(
+     measure = "SMD",
+     m1i = Mean_boys_play_male, sd1i = SD_boys_play_male, n1i = N_boys,
+     m2i = Mean_girls_play_male, sd2i = SD_girls_play_male, n2i = N_girls,
+     data = raw
+ )
+ 
+
+```
+
+```{r}
+res <- rma(yi, vi, data = df_es, method = "REML")
+summary(res)
+
+```
+
+### **B. create a funnel plot (what do you see?)**
+
+```{r}
+ #funnel plot 
+ funnel(res)
+```
+
+Interpretation:
+
+The funnel plot shows more studies with positive results than negative ones, which might mean some small negative studies are missing. Smaller studies vary more and bigger ones are more consistent, which is normal. Overall, it looks like boys play more with male toys, but we should be careful because of possible bias.
+
+### **C. check if methods / quality affect the results**
+
+```{r}
+#effect size data
+df_mod <- df_es
+
+# Convert "*" and "X" quality indicators to numeric (1 = "*", 0 = otherwise)
+to_numeric_star <- function(x) ifelse(x == "*", 1, 0)
+
+# Convert relevant quality/method indicators
+df_mod$Ascertainment <- to_numeric_star(raw$`Ascertainment of behaviour`)
+df_mod$Same_method <- to_numeric_star(raw$`Same ascertainment method for both groups`)
+df_mod$Case_definition <- to_numeric_star(raw$`Case definition adequate`)
+df_mod$Comparability <- to_numeric_star(raw$`Comparability of both groups`)
+df_mod$Parental_opinion <- to_numeric_star(raw$`Parental opinion`)
+df_mod$Parent_present <- as.numeric(raw$`Parent present`)
+df_mod$Setting <- as.numeric(raw$Setting)
+df_mod$NOS_score <- as.numeric(raw$`NOS score`)
+
+# Test if quality scores affect effect sizes
+
+
+rma(yi, vi, mods = ~ NOS_score, data = df_mod)
+```
+
+```{r}
+# Test if specific quality indicators matter
+rma(yi, vi, mods = ~ Ascertainment + Same_method + Case_definition + Comparability + Parental_opinion, data = df_mod)
+```
+
+```{r}
+# Test if setting or parent presence matter
+rma(yi, vi, mods = ~ Setting + Parent_present, data = df_mod)
+```
+
+Interpretation:
+
+None of the quality or design features significantly influenced effect sizes, all p-values were above 0.1. The overall effect remained strong, and unexplained heterogeneity stayed high (I² = 76%). NOS score and other quality indicators explained very little variation (R² \< 5%). In short: study differences didn’t meaningfully affect how strongly boys played with male-typed toys.
+
+### D. does author gender affect it?
+
+```{r}
+# Create a variable for proportion of female authors
+df_mod$Prop_female <- raw$`Female authors` / (raw$`Female authors` + raw$`Male authors`)
+ 
+# Run the meta-regression with author gender proportion
+res_gender <- rma(yi, vi, mods = ~ Prop_female, data = df_mod)
+
+summary(res_gender)
+```
+
+Interpretation:
+
+The proportion of female authors didn’t significantly affect the results (p = 0.23). There was a slight trend suggesting studies with more female authors had smaller effects, but it wasn’t strong enough to rule out chance. So, based on this model, author gender doesn't clearly influence the findings.
