@@ -1,14 +1,33 @@
 ---
-title: "*Survivor (U.S. Version)*"
-author: "Daisy Mutua"
-date: "04/09/2025"
-format: html
-editor: visual
+title: "Survivor TV Show Breakdown"
+author: "Your Name"
+date: today
+format:
+  html:
+    toc: true
+    toc-title: "Contents"
+    toc-depth: 3
+    toc-location: body
+    theme: superhero
+    code-fold: true
+    code-summary: "Click to expand R code"
+    embed-resources: true
+  pdf: default
+  docx: default
 execute:
   echo: fenced
+  warning: false
+  cache: true
+  freeze: auto
+code-annotations: below
+title-block-banner: true
+number-sections: true
+number-depth: 3
 ---
 
+::: panel-tabset
 ## *Survivor*
+:::
 
 *Survivor* is an American reality television series that premiered on CBS on May 31, 2000. The show places a group of strangers in an isolated location, where they must fend for themselves by obtaining food, fire, and shelter. Contestants compete in various challenges—testing physical ability, mental acuity, and teamwork—to earn rewards and immunity from elimination. Periodically, players are voted out by their peers until only one remains, earning the title of "Sole Survivor" and a grand prize of \$1 million. The series is hosted by Jeff Probst and has been praised for its innovative format and influence on reality television. ​
 
@@ -30,7 +49,7 @@ Here’s a summary table of average U.S. viewership:
 | 40     | Feb 12, 2020  | May 13, 2020    | 6.68                    |
 | 45     | Sep 27, 2023  | Dec 20, 2023    | 5.24                    |
 
-## 📊 Viewership by Season
+### 📊 Viewership by Season
 
 ```{r}
 
@@ -50,7 +69,7 @@ ggplot(df, aes(x = season, y = viewers)) +
   theme_minimal()
 ```
 
-## Season-to-Season Change
+#### Season-to-Season Change
 
 ```{r}
 # Add viewership change
@@ -64,7 +83,7 @@ ggplot(df[-1, ], aes(x = season, y = Change)) +
   theme_minimal()
 ```
 
-## Observations
+### Observations
 
 -   The peak viewership was in **Season 2** with 29.8 million viewers.
 
@@ -144,13 +163,13 @@ As *Survivor* continues to innovate, the future looks promising. With *Jeff Prob
 
 We'd love to hear from you! Vote for your favorite season of *Survivor* and tell us why it stands out to you!
 
--    Season 1: Borneo
+-   Season 1: Borneo
 
 -   Season 2: The Australian Outback
 
--    Season 5: Thailand
+-   Season 5: Thailand
 
--    Season 20: Heroes vs. Villains
+-   Season 20: Heroes vs. Villains
 
 -   Season 40: Winners at War
 
