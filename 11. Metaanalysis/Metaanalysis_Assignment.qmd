@@ -1,0 +1,160 @@
+---
+title: "Metaanalysis Assignment"
+format: html
+editor: visual
+---
+
+The study looks at various studies of children choosing what kind of toys they play with (stereotypically 'boy-toys' or stereotypically 'girl-toys'). Mean times (in seconds) of playing are recorded, along with sample sizes and standard errors (for boys playing with each kind of toys and for girls playing with each kind of toys).
+
+There's also information about the studies (e.g. year) and a bit about quality.
+
+Here's authors' descriptions to the data:
+
+> Neutral toys (1 = neutral toys included; 2 = neutral toys not included); Parent present (1 = absent; 2 = minimal interaction; 3 = moderate or full interaction); Setting = location of study (1 = home; 2 = laboratory; 3 = nursery); Country = gender inequality index, a measure of how gender egalitarian the country was at the time the study took place.
+
+> Note. Quality is assessed using Newcastle–Ottawa Quality Assessment Scale criteria adapted for this study. A star indicates that the study fulfilled this criterion; an X indicates that the
+study did not fulfil this criterion. 
+Case definition adequate: clear justification for the gendered nature of a toy, for example, based on research. 
+Representativeness of cases: recruitment of consecutive participants. 
+Selection of controls: whether boys and girls were comparable in terms of social background.
+Parental opinion: whether parents' views on gender were measured.
+Comparability of both groups: the toys were comparable (in size, shape, etc.) and if the boys and girls were comparable in age. 
+Ascertainment of behaviour: Play behaviour was clearly defined. 
+Same ascertainment method for both groups: The measurement of the outcome (time spent playing with toy) was clearly defined. 
+Nonresponse rate: whether either nonuptake or dropout rates reported.
+
+```{r}
+library(dplyr)
+library(meta)
+```
+
+Experiment using what you've learned:
+
+```{r}
+df <- readxl::read_xlsx("data\\metaanalysis_data.xlsx")
+head(df)
+```
+
+a) combine the effects
+Let’s do a meta-analysis comparing boy toy preference (boys vs girls, time spent with boy toys):
+
+
+```{r}
+# 1. Boys playing with male-stereotyped toys vs girls
+m_boys_maletoys <- metacont(
+  n.e = df$N_boys,
+  mean.e = df$Mean_boys_play_male,
+  sd.e = df$SD_boys_play_male,
+  n.c = df$N_girls,
+  mean.c = df$Mean_girls_play_male,
+  sd.c = df$SD_girls_play_male,
+  studlab = df$Study,
+  data = df,
+  sm = "MD",
+  method.tau = "REML"
+)
+
+# 2. Boys playing with female-stereotyped toys vs girls
+m_boys_femaletoys <- metacont(
+  n.e = df$N_boys,
+  mean.e = df$Mean_boys_play_female,
+  sd.e = df$SD_boys_play_female,
+  n.c = df$N_girls,
+  mean.c = df$Mean_girls_play_female,
+  sd.c = df$SD_girls_play_female,
+  studlab = df$Study,
+  data = df,
+  sm = "MD",
+  method.tau = "REML"
+)
+
+# 3. Girls with female toys (girls vs boys)
+m_girls_femaletoys <- metacont(
+  n.e = df$N_girls,
+  mean.e = df$Mean_girls_play_female,
+  sd.e = df$SD_girls_play_female,
+  n.c = df$N_boys,
+  mean.c = df$Mean_boys_play_female,
+  sd.c = df$SD_boys_play_female,
+  studlab = df$Study,
+  data = df,
+  sm = "MD",
+  method.tau = "REML"
+)
+
+# 4. Girls with male toys (girls vs boys)
+m_girls_maletoys <- metacont(
+  n.e = df$N_girls,
+  mean.e = df$Mean_girls_play_male,
+  sd.e = df$SD_girls_play_male,
+  n.c = df$N_boys,
+  mean.c = df$Mean_boys_play_male,
+  sd.c = df$SD_boys_play_male,
+  studlab = df$Study,
+  data = df,
+  sm = "MD",
+  method.tau = "REML"
+)
+
+```
+
+
+Forest plot for Boys with Male toys
+```{r}
+forest(m_boys_maletoys, main = "Boys with Male Toys", sortvar = TE)
+
+```
+```{r}
+m_boys_femaletoys %>% forest()
+```
+
+```{r}
+m_girls_maletoys%>% forest()
+```
+
+
+```{r}
+m_girls_femaletoys%>% forest()
+```
+
+
+b) create a funnel plot (what do you see?)
+
+```{r}
+# Funnel plot for boys playing with male-stereotyped toys
+funnel(m_boys_maletoys, main = "Funnel Plot: Boys with Male Toys")
+metabias(m_boys_maletoys, method.bias = "linreg")  # Egger's test
+
+```
+
+```{r}
+m_boys_femaletoys%>% funnel()
+```
+
+
+c) check if methods / quality affect the results
+
+
+```{r}
+meta_reg <- metareg(m_boys_maletoys,
+                    ~ `Year` + `Neutral toys` + `Country` + `Age (months)` +
+                      `Female authors` + `Male authors`)
+summary(meta_reg)
+
+```
+
+d) does author gender affect it?
+
+```{r}
+
+metareg(m_boys_maletoys,
+        ~ Year + `Neutral toys` + Country + `Age (months)` + 
+          `Female authors` + `Male authors`)
+```
+Yes, author gender does appear to affect the results.
+
+The number of female authors is significantly negatively associated with effect size (p = 0.0302). This means studies with more female authors report smaller differences between boys and girls in how much time they spend with male-typed toys.
+
+In contrast, the number of male authors has no significant effect (p = 0.9211), indicating that simply having more male authors doesn't change the reported results.
+
+A possible interpretation is that female authors may be more cautious in interpreting or reporting strong gender differences in toy preferences, or may design studies differently (more neutral or balanced designs).
