@@ -1,12 +1,21 @@
 ---
-title: "Assignment"
-author: ""
-date: today
-output: html_document
+title: "Game of Thrones Season Summary"
+format: pdf
+params:
+  season: 1
+  data_path: "Data/season1.csv"
 ---
 
-```{r}
-load("../Data/season_1.RData")
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(readr)
+library(kableExtra)
+
+# Load data dynamically based on parameter
+got_data <- read_csv(params$data_path)
+season_num <- params$season
 ```
 
 # Game of Thrones - Season 1 summary in numbers
