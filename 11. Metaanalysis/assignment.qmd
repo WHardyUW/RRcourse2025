@@ -1,0 +1,51 @@
+---
+title: "assignment"
+format: html
+editor: visual
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(meta)
+library(metafor)
+library(readxl)
+library(dplyr)
+data <- read_excel("C:/Users/Lian Yutong/Desktop/QF/Reproducible Research/RRcourse2025/11. Metaanalysis/data/metaanalysis_data.xlsx")
+
+```
+
+```{r}
+data_es <- escalc(
+  measure = "SMD",
+  m1i = Mean_boys_play_male,
+  sd1i = SD_boys_play_male,
+  n1i = N_boys,
+  m2i = Mean_girls_play_male,
+  sd2i = SD_girls_play_male,
+  n2i = N_girls,
+  data = data
+)
+
+# Combine the effects
+res <- rma(yi, vi, data = data_es)
+summary(res)
+# Funnel plot
+funnel(res)
+```
+
+The funnel plot reveals a noticeable asymmetry, suggesting potential publication bias or small-study effects. In an ideal scenario with no publication bias, studies would be symmetrically distributed around the pooled effect size, forming an inverted funnel shape. However, in this plot, smaller studies (with higher standard errors) are underrepresented on the left side, especially those with low or negative effect sizes. Meanwhile, there is a concentration of smaller studies reporting large positive effects on the right. This pattern may indicate that studies showing little or no gender difference were less likely to be published or included in the analysis. Therefore, while the overall effect size is large and statistically significant, this plot suggests that the observed effect may be inflated due to reporting bias.
+
+```{r}
+res_quality <- rma(yi, vi, mods = ~ NOS.score, data = data_es)
+summary(res_quality)
+```
+
+There is no strong evidence that study quality, as measured by the NOS score, significantly moderates the effect of gender on toy preference. This suggests that the overall finding—a robust preference among boys for male-typed toys—holds across studies of varying quality.
+
+```{r}
+data_es$AuthorGenderDiff <- data$`Female authors` - data$`Male authors`
+res_gender <- rma(yi, vi, mods = ~ AuthorGenderDiff, data = data_es)
+summary(res_gender)
+```
+
+Studies authored by more women tend to report weaker gender differences in toy preferences than those authored by more men. This suggests that author gender may influence research outcomes or interpretations, possibly reflecting different theoretical orientations, analytic choices, or publication tendencies. The moderator explains a substantial proportion of the between-study heterogeneity (∼41%), which makes it a strong candidate as an explanatory factor.
